@@ -214,6 +214,11 @@
                     <a href="#contact"
                         class="text-primary text-xl hover:text-primary/80 transition-colors font-medium uppercase">Liên
                         hệ</a>
+                    <a href="/gio-hang"
+                        class="inline-flex items-center gap-1 text-primary text-xl hover:text-primary/80 transition-colors font-medium uppercase">
+                        <i class="ri-shopping-cart-2-line text-2xl"></i>
+                        Giỏ hàng
+                    </a>
                 </nav>
                 <button class="md:hidden w-8 h-8 flex items-center justify-center text-primary">
                     <i class="ri-menu-line ri-lg"></i>
@@ -232,6 +237,9 @@
                 <a href="#contact"
                     class="text-primary hover:text-primary/80 transition-colors font-medium text-center uppercase">Liên
                     hệ</a>
+                <a href="/gio-hang"
+                    class="text-primary hover:text-primary/80 transition-colors font-medium text-center uppercase">Giỏ
+                    hàng</a>
             </nav>
         </div>
     </header>
