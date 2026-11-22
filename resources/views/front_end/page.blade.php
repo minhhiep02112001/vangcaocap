@@ -84,23 +84,6 @@
             }
         }
 
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #8B1538;
-        }
-
-        .countdown-unit {
-            background: rgba(139, 21, 56, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-
         .wine-badge {
             background: linear-gradient(135deg, #8B1538 0%, #A61D4D 100%);
             color: white;
@@ -389,25 +372,7 @@
                             Tặng thêm 01 chai Elettra Primitivo khi bạn giới thiệu khách hàng hoặc mua thêm 1 Combo thứ
                             2.</li>
                     </ul>
-                    <h2 class="font-playfair text-4xl font-extrabold text-[#fff] mb-8 text-center animate-fade-in">THỜI
-                        HẠN ĐĂNG KÍ COMBO CỦA BẠN</h2>
-                    <div id="countdown" class="countdown-timer mb-10 flex justify-center gap-6">
-                        <div
-                            class="countdown-unit bg-[#1599eb] p-6 rounded-2xl text-3xl font-bold text-[#fff] shadow-lg transform hover:scale-110 transition-all duration-300">
-                            <span id="hours" class="text-[#fff]">00</span><span
-                                class="block text-sm text-[#fff]">Giờ</span>
-                        </div>
-                        <div
-                            class="countdown-unit bg-[#1599eb] p-6 rounded-2xl text-3xl font-bold text-[#fff] shadow-lg transform hover:scale-110 transition-all duration-300">
-                            <span id="minutes" class="text-[#fff]">00</span><span
-                                class="block text-sm text-[#fff]">Phút</span>
-                        </div>
-                        <div
-                            class="countdown-unit bg-[#1599eb] p-6 rounded-2xl text-3xl font-bold text-[#fff] shadow-lg transform hover:scale-110 transition-all duration-300">
-                            <span id="seconds" class="text-[#fff]">00</span><span
-                                class="block text-sm text-[#fff]">Giây</span>
-                        </div>
-                    </div>
+                    @include('front_end.block.combo_countdown')
                 </div>
             </div>
         </section>
@@ -642,35 +607,6 @@
     <!-- Toast Notification -->
     <div class="toast" id="toast">Đã gửi đăng ký thành công!</div>
     <script>
-        // Countdown Timer - 24 hours repeating
-        function startCountdown() {
-            let endTime = localStorage.getItem('countdownEndTime');
-            if (!endTime || new Date(endTime) < new Date()) {
-                endTime = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-                localStorage.setItem('countdownEndTime', endTime);
-            }
-            const timer = setInterval(() => {
-                const now = new Date();
-                let distance = new Date(endTime) - now;
-                if (distance < 0) {
-                    // Reset endTime
-                    endTime = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-                    localStorage.setItem('countdownEndTime', endTime);
-                    // Recalculate distance
-                    distance = new Date(endTime) - now;
-                }
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                console.log(hours, minutes, seconds);
-
-                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            }, 1000);
-        }
-        startCountdown();
-
         // Buy Now Button - Scroll to Form
         document.getElementById('buy-now-btn').addEventListener('click', () => {
             document.getElementById('registration-form').scrollIntoView({

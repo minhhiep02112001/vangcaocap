@@ -49,7 +49,7 @@
              </div>
          </div>
 
-         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-16">
+          {{-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-16">
              <section class="h-full overflow-hidden rounded-2xl border border-red-100 bg-gradient-to-br from-white to-red-50/50 shadow-sm">
                  <div class="flex items-center gap-3 border-b border-red-100 px-6 py-5">
                      <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-red-900 text-white"><i class="ri-building-4-line ri-lg"></i></span>
@@ -86,7 +86,7 @@
                      <a href="/dieu-kien-han-che-trong-viec-cung-cap-hang-hoa" class="group flex items-center justify-between gap-4 rounded-xl px-3 py-3.5 text-gray-700 transition hover:bg-red-50 hover:text-red-900"><span>Điều kiện hạn chế trong việc cung cấp hàng hóa</span><i class="ri-arrow-right-s-line text-xl text-red-300 transition group-hover:translate-x-1 group-hover:text-red-700"></i></a>
                  </nav>
              </section>
-         </div>
+         </div>  --}}
 
 
          <div class="border-t border-red-200 pt-8">
