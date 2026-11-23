@@ -445,11 +445,12 @@
                     <div class="flex flex-col lg:flex-row items-center justify-between">
                         <div class="text-center lg:text-left mb-8 lg:mb-0">
                             <p class=" text-2xl  text-[#0E5E22]  mb-2">Tại The Best Wine, với các chuyên gia đã hơn 15
-                                năm kinh nghiệm hợp tác
-                                cùng hàng trăm hầm rượu hàng đầu thế giới, chúng tôi cam kết chỉ bán rượu vang nhập khẩu
-                                nguyên chai và từ những vùng làm vang danh tiếng nhất của Pháp và Ý. Ví dụ dưới đây là
-                                chai rượu vang L’amour của nhà sản xuất Le Cellier Des Gourmets, một trong những nhà làm
-                                vang nổi tiếng nhất vùng St Emilion danh giá tại Bordeaux.</p>
+                                năm kinh nghiệm hợp tác cùng hàng trăm hầm rượu hàng đầu thế giới, chúng tôi cam kết chỉ
+                                bán rượu vang nhập khẩu nguyên chai và từ những vùng làm vang danh tiếng nhất của Pháp
+                                và Ý.
+                                Ví dụ dưới đây là chai rượu vang Petit Gautier đến từ nhà sản xuất Le Cellier Des
+                                Gourmets, một trong những nhà làm vang nổi tiếng nhất tiểu vùng St Emilion danh giá của
+                                Bordeaux.</p>
                         </div>
                     </div>
 
@@ -462,15 +463,9 @@
                     <div class="text-center lg:text-left mb-8 lg:mb-0">
                         <h3
                             class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center font-playfair font-bold text-[#990F07] mb-3 sm:mb-4 uppercase leading-tight">
-                            Ưu đãi
-                            khi mua 6
-                            chai
-                            vang nhập
-                            khẩu chính hãng Bronzeo</h3>
-                        <p class="text-2xl text-center text-[#0E5E22] mb-2">Giá chỉ 395K/chai, tổng thanh toán
-                            2.370.000VND cho 6
-                            chai
-                            vang Bronzeo nhập khẩu nguyên chai:</p>
+                            ƯU ĐÃI KHI MUA 6 CHAI VANG NHẬP KHẨU CHÍNH HÃNG PETIT GAUTIER</h3>
+                        <p class="text-2xl text-center text-[#0E5E22] mb-2">Tổng thanh toán chỉ 2.790.000VNĐ cho Combo
+                            06 chai vang Pháp nhập khẩu nguyên chai:</p>
                         <div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-4">
                             <div class="text-center">
                                 <img src="./assets/uploads/ruou-vang-combo-1.png" alt="Bộ ly Pha Lê Bohemia 06 chiếc"
@@ -483,7 +478,8 @@
             <div class="bg-[#990F07] py-4 text-center mb-8 rounded-lg shadow-md">
                 <p class="text-2xl font-bold text-white">TỔNG GIÁ TRỊ QUÀ TẶNG 1.559.000 VND</p>
             </div>
-            <a href="https://www.vindefrance.com/wines/node/21975" target="_blank"
+            <a href="https://www.vivino.com/fr/le-cellier-des-gourmets-petit-gautier/w/6800488?srsltid=AYCX9vLLCCfvI8Q2QU4mh3P2_WrnchALgTckjondkpucKgUef9T5HcvM"
+                target="_blank"
                 class="block w-full md:w-auto bg-[#0E5E22] text-white px-8 py-4 rounded-full font-semibold text-center shadow-md">
                 Truy xuất nguồn gốc rượu
             </a>
@@ -648,9 +644,9 @@
         <div class="absolute bottom-0 left-0 w-1/2 h-1/2 opacity-20"
             style="background: radial-gradient(circle at 30% 70%, #8B1538 0%, transparent 70%)"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center mb-8 sm:mb-12 md:mb-16">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Vì vậy...</h2>
-                <h3 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight">Hãy đăng
+            <div class="text-center mb-8 sm:mb-12 md:mb-6">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Chi tiết bộ quà tặng.</h2>
+                {{-- <h3 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight">Hãy đăng
                     ký <span class="text-[#0E5E22]">COMBO</span></h3>
                 <h3
                     class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#0E5E22] mb-2 sm:mb-4 leading-tight">
@@ -660,7 +656,7 @@
                 <p class="text-base sm:text-lg md:text-2xl leading-relaxed px-1">
                     <span class="text-[#CD853F]">Nhận ưu đãi</span> <span class="text-[#0E5E22]">trọn bộ 06 chai rượu
                         và quà tặng kèm</span> <span class="text-[#CD853F]">dưới đây</span>
-                </p>
+                </p> --}}
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="text-center group hover:transform hover:scale-105 transition-all duration-300">
