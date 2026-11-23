@@ -308,7 +308,7 @@
 
     <section class="bg-cover bg-center px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-12"
         style="background-image: url('{{ asset('assets/uploads/bg-event.jpg') }}');">
-        <img src="{{ asset('assets/uploads/photo_banner_info.png') }}" alt="Cách đọc nhãn chai rượu vang" width="1024"
+        <img src="{{ asset('assets/uploads/photo_banner_info_1.jpg') }}" alt="Cách đọc nhãn chai rượu vang" width="1024"
             height="903" class="mx-auto block h-auto w-full max-w-4xl rounded-lg shadow-2xl sm:rounded-2xl">
     </section>
     <!-- Produ
