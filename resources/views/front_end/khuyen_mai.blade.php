@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="./assets/uploads/favicon.png">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 
-    <meta name="csrf_token" value="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script>
         tailwind.config = {
@@ -522,13 +522,16 @@
     <script id="form-handling">
         document.addEventListener('DOMContentLoaded', function() {
             const forms = document.querySelectorAll('form');
-            const csrf_token = document.querySelector('meta[name="csrf_token"]')?.getAttribute('value');
+            const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
             // const toast = document.getElementById('toast');
             forms.forEach(form => {
+                if (!form.action || !form.action.includes('/booking')) {
+                    return;
+                }
                 form.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     let status = false;
-                    const redirect = form.getAttribute('data-redirect');
+                    let redirect = form.getAttribute('data-redirect');
 
                     const submitButton = this.querySelector('button[type="submit"]');
                     const originalText = submitButton.textContent;
@@ -540,28 +543,30 @@
                         const response = await fetch(form.action, {
                             method: form.method,
                             headers: {
-                                'X-CSRF-TOKEN': csrf_token
+                                'X-CSRF-TOKEN': csrf_token,
+                                'Accept': 'application/json',
                             },
                             body: formData
                         });
-                        if (response.ok) {
+                        const result = await response.json().catch(() => ({}));
+                        if (response.ok && result.status === 'success') {
                             Swal.fire('Thành công!',
-                                'Cảm ơn bạn đã đăng ký combo của chúng tôi', 'success')
+                                'Cảm ơn bạn đã đăng ký. Chúng tôi sẽ liên hệ sớm.', 'success');
                             form.reset();
-                            const result = await response.json();
-                            if (result.status == 'success') {
-                                status = true;
+                            status = true;
+                            if (result.redirect) {
+                                redirect = result.redirect;
                             }
                         } else {
-                            Swal.fire('Lỗi!', 'Có lỗi xảy ra, vui lòng thử lại!', 'error')
+                            Swal.fire('Lỗi!', result.message || 'Có lỗi xảy ra, vui lòng thử lại!', 'error');
                         }
                     } catch (error) {
-                        Swal.fire('Lỗi!', 'Lỗi kết nối!', 'error')
+                        Swal.fire('Lỗi!', 'Lỗi kết nối!', 'error');
                     }
                     setTimeout(() => {
                         submitButton.textContent = originalText;
                         submitButton.disabled = false;
-                        if (status) window.location.href = redirect;
+                        if (status && redirect) window.location.href = redirect;
                     }, 3000);
                     return;
                 });

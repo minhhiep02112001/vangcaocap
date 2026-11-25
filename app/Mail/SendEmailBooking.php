@@ -4,16 +4,13 @@ namespace App\Mail;
 
 use App\Models\Booking;
 use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
 
+/** Gửi đồng bộ qua Mail::send() — không implement ShouldQueue. */
 class SendEmailBooking extends Mailable
 {
-    use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
@@ -30,34 +27,23 @@ class SendEmailBooking extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Envelope
      */
+    protected function formTypeLabel(): string
+    {
+        return match ($this->booking->form_type) {
+            'combo_1' => 'Combo 1',
+            'combo_2' => 'Combo 2',
+            'combo_cart' => 'Giỏ hàng',
+            'form_1' => 'Form 1',
+            'form_2' => 'Form 2',
+            'form_3' => 'Form 3',
+            'form_4' => 'Form hộp quà',
+            default => $this->booking->form_type ?? 'Đăng ký',
+        };
+    }
+
     public function envelope()
     {
-        $formType = $this->booking->form_type == 'form_1' ? "Form 1" : "Form 2";
-        switch ($this->booking->form_type) {
-            case "combo_1":
-                $formType = "Combo 1";
-                break;
-            case "combo_2":
-                $formType = "Combo 2";
-                break;
-            case "combo_cart":
-                $formType = "Giỏ hàng";
-                break;
-            case "form_1":
-                $formType = "Form 1";
-                break;
-            case "form_2":
-                $formType = "Form 2";
-                break;
-            case "form_3":
-                $formType = "Form 3";
-                break;
-            case "form_4":
-                $formType = "Form hộp quà";
-                break;
-            default:
-                $formType = $this->booking->form_type ?? "Form 1";
-        }
+        $formType = $this->formTypeLabel();
 
         return new Envelope(
             subject: "Booking mới từ {$this->booking->name} - {$formType}",
@@ -74,7 +60,7 @@ class SendEmailBooking extends Mailable
         $created_at = Carbon::parse($this->booking->created_at)->format('Y-m-d H:i');
         $data  = [
             'customerName' => $this->booking->name,
-            'form_type' => $this->booking->form_type  == 'form_1' ? "Form 1" : "Form 2",
+            'form_type' => $this->formTypeLabel(),
             'created_at' => $created_at,
             'phone' => $this->booking->phone,
             'address' => $this->booking->address,

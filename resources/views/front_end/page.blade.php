@@ -7,7 +7,7 @@
     <title>Ưu Đãi Đặc Biệt - Elletra Primitivo</title>
     <link rel="icon" type="image/png" href="./assets/uploads/favicon.png">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <meta name="csrf_token" value="wZFmV9LxlU0i8B055RVfbjymBHzfdJaBfVidLqa8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
         tailwind.config = {
             theme: {
@@ -388,9 +388,10 @@
                     Form
                     Đăng
                     Ký</h2>
-                <form id="register-form" action="https://vangcaocap.vn/booking" method="post"
-                    data-redirect="https://vangcaocap.vn/uu-dai-dac-biet"
+                <form id="register-form" action="{{ route('booking') }}" method="post"
+                    data-redirect="{{ url('/uu-dai-dac-biet') }}"
                     class="bg-[#990e06]  text-[#333] backdrop-blur-sm p-10 rounded-3xl shadow-2xl border border-wineRed/20 space-y-6 max-w-xl mx-auto transform hover:scale-102 transition-all duration-500">
+                    @csrf
                     <input type="hidden" name="form_type" value="form_2">
                     <div class="relative">
                         <label
@@ -483,12 +484,12 @@
         <script id="form-handling">
             document.addEventListener('DOMContentLoaded', function() {
                 const form = document.getElementById('register-form');
-                const csrf_token = document.querySelector('meta[name="csrf_token"]')?.getAttribute('value');
+                const csrf_token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
                 form.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     let status = false;
-                    const redirect = form.getAttribute('data-redirect');
+                    let redirect = form.getAttribute('data-redirect');
                     const submitButton = this.querySelector('button[type="submit"]');
                     const originalText = submitButton.textContent;
                     submitButton.textContent = 'Đang xử lý...';
@@ -499,20 +500,21 @@
                         const response = await fetch(form.action, {
                             method: form.method,
                             headers: {
-                                'X-CSRF-TOKEN': csrf_token
+                                'X-CSRF-TOKEN': csrf_token,
+                                'Accept': 'application/json',
                             },
                             body: formData
                         });
-                        if (response.ok) {
-                            Swal.fire('Thành công!', 'Đã gửi đăng ký thành công!', 'success')
-
+                        const result = await response.json().catch(() => ({}));
+                        if (response.ok && result.status === 'success') {
+                            Swal.fire('Thành công!', 'Đã gửi đăng ký thành công!', 'success');
                             form.reset();
-                            const result = await response.json();
-                            if (result.status == 'success') {
-                                status = true;
+                            status = true;
+                            if (result.redirect) {
+                                redirect = result.redirect;
                             }
                         } else {
-                            Swal.fire('Lỗi!', 'Có lỗi xảy ra, vui lòng thử lại!', 'error')
+                            Swal.fire('Lỗi!', result.message || 'Có lỗi xảy ra, vui lòng thử lại!', 'error');
                         }
                     } catch (error) {
                         Swal.fire('Lỗi!', 'Lỗi kết nối!', 'error')

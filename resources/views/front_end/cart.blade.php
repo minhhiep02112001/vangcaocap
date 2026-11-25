@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ hàng - The Best Wine</title>
     <link rel="icon" type="image/png" href="/assets/uploads/favicon.png">
-    <meta name="csrf_token" value="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -104,6 +104,17 @@
                                             alt="{{ $combo['name'] }}"
                                             class="w-24 h-24 object-cover rounded-xl flex-shrink-0">
                                         <div>
+                                            @php
+                                                $comboLabel = 'Combo';
+                                                if (preg_match('/combo_(\d+)/', (string) ($combo['code'] ?? $key), $m)) {
+                                                    $comboLabel = 'Combo ' . $m[1];
+                                                }
+                                            @endphp
+                                            <span
+                                                class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2.5 py-1 rounded-full mb-1.5">
+                                                <i class="ri-gift-2-line text-sm" aria-hidden="true"></i>
+                                                {{ $comboLabel }}
+                                            </span>
                                             <h2 class="font-semibold text-gray-900">{{ $combo['name'] }}</h2>
                                             <p class="text-sm text-gray-500 mt-1">{{ $combo['description'] ?? '' }}</p>
                                             <p class="text-sm text-gray-600 mt-2 sm:hidden line-total-mobile font-medium">
@@ -326,7 +337,7 @@
             backdrop.addEventListener('click', closeModal);
 
             const form = document.getElementById('order-form');
-            const csrfToken = document.querySelector('meta[name="csrf_token"]')?.getAttribute('value');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 
             form.addEventListener('submit', async function (e) {
                 e.preventDefault();
@@ -342,15 +353,19 @@
                 try {
                     const response = await fetch(form.action, {
                         method: 'POST',
-                        headers: { 'X-CSRF-TOKEN': csrfToken },
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken,
+                            'Accept': 'application/json',
+                        },
                         body: new FormData(form),
                     });
-                    if (response.ok) {
+                    const result = await response.json().catch(() => ({}));
+                    if (response.ok && result.status === 'success') {
                         await Swal.fire('Thành công!', 'Cảm ơn bạn đã đặt hàng. Chúng tôi sẽ liên hệ sớm.', 'success');
                         form.reset();
                         closeModal();
                     } else {
-                        Swal.fire('Lỗi!', 'Có lỗi xảy ra, vui lòng thử lại!', 'error');
+                        Swal.fire('Lỗi!', result.message || 'Có lỗi xảy ra, vui lòng thử lại!', 'error');
                     }
                 } catch {
                     Swal.fire('Lỗi!', 'Lỗi kết nối!', 'error');

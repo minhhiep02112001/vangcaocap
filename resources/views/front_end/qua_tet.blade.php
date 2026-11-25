@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="./assets/uploads/favicon.png">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 
-    <meta name="csrf_token" value="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <script>
         tailwind.config = {

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\Booking as EventBooking;
+use App\Mail\SendEmailBooking;
 use App\Models\Redirect;
 use App\Repositories\Eloquent\BookingRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
@@ -20,6 +21,11 @@ class HomeController extends Controller
     public function dashboard(Request $request)
     {
         return view('front_end.home', []);
+    }
+
+    public function ruouVang(Request $request)
+    {
+        return view('front_end.ruou_vang');
     }
     public function page(Request $request)
     {
@@ -65,46 +71,62 @@ class HomeController extends Controller
 
     public function booking(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'form_type' => 'required',
-        ]);
-        $input = $request->only(['name', 'phone', 'form_type', 'address', 'note', 'count_combo']);
+        try {
+            $validated = $request->validate([
+                'name' => 'required',
+                'phone' => 'required',
+                'address' => 'required',
+                'form_type' => 'required',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->validator->errors()->first(),
+                'errors' => $e->errors(),
+            ], 422);
+        }
+
+        $input = $validated;
+        if ($request->has('note')) {
+            $input['note'] = $request->input('note');
+        }
+        if ($request->has('count_combo')) {
+            $input['count_combo'] = $request->input('count_combo');
+        }
         try {
             $booking =  $this->bookingRepository->create($input);
             $redirect = null;
-            switch ($input['form_type']) {
-                case "combo_1":
-                case "form_1":
-                    $receiverEmail = env("EMAIL_RECEIVER_1", config('data.email_receiver_1'));
-                    break;
-                case "combo_2":
-                    $receiverEmail = env("EMAIL_RECEIVER_2", config('data.email_receiver_1'));
-                    break;
-                case "form_4":
-                    $receiverEmail = env("EMAIL_RECEIVER_4", config('data.email_receiver_1'));
-                    $redirect = url('/uu-dai-dac-biet');
-                    break;
-                case "combo_cart":
-                case "form_2":
-                    $receiverEmail = env("EMAIL_RECEIVER_2", config('data.email_receiver_1'));
-                    break;
-                case "form_3":
-                    $receiverEmail = env("EMAIL_RECEIVER_3", config('data.email_receiver_1'));
-                    break;
-                default:
-                    $receiverEmail = config('data.email_receiver_1');
-                    break;
+            $receiverEmail = match ($input['form_type']) {
+                'combo_1', 'form_1' => config('data.email_receiver_1'),
+                'combo_2', 'combo_cart', 'form_2' => config('data.email_receiver_2'),
+                'form_3' => config('data.email_receiver_2'),
+                'form_4' => config('data.email_receiver_1'),
+                default => config('data.email_receiver_1'),
+            };
+
+            if ($input['form_type'] === 'form_4') {
+                $redirect = url('/uu-dai-dac-biet');
             }
-            Mail::to($receiverEmail)->send(new \App\Mail\SendEmailBooking($booking));
-            if (!empty($redirect)) {
-                return redirect($redirect);
-            }
-            return response()->json(['status' => 'success'], 200);
-        } catch (\Exception $ex) {
-            return response()->json(['status' => 'error'], 500);
+
+            // Gửi SMTP ngay trong request (không queue, không cần queue:work)
+            Mail::mailer(config('mail.default', 'smtp'))
+                ->to($receiverEmail)
+                ->send(new SendEmailBooking($booking));
+
+            return response()->json([
+                'status' => 'success',
+                'redirect' => $redirect,
+            ], 200);
+        } catch (\Throwable $ex) {
+            Log::error('Booking mail failed', [
+                'message' => $ex->getMessage(),
+                'form_type' => $request->input('form_type'),
+            ]);
+
+            return response()->json([
+                'status' => 'error',
+                'message' => config('app.debug') ? $ex->getMessage() : 'Có lỗi khi gửi đơn.',
+            ], 500);
         }
     }
 
