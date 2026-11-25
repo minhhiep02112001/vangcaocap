@@ -16,6 +16,10 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v6
 
+      - name: Check FTP connection
+        run: |
+          nc -vz -w 15 preston.maychu.cloud 21
+
       - name: Deploy FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
@@ -24,6 +28,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           port: 21
+          timeout: 120000
+          log-level: verbose
           server-dir: /
           local-dir: ./
           dry-run: true
