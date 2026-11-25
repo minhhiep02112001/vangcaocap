@@ -108,10 +108,7 @@ class HomeController extends Controller
                 $redirect = url('/uu-dai-dac-biet');
             }
 
-            // Gửi SMTP ngay trong request (không queue, không cần queue:work)
-            Mail::mailer(config('mail.default', 'smtp'))
-                ->to($receiverEmail)
-                ->send(new SendEmailBooking($booking));
+            $this->sendBookingMailSync($booking, $receiverEmail);
 
             return response()->json([
                 'status' => 'success',
@@ -121,6 +118,9 @@ class HomeController extends Controller
             Log::error('Booking mail failed', [
                 'message' => $ex->getMessage(),
                 'form_type' => $request->input('form_type'),
+                'mail_host' => config('mail.mailers.smtp.host'),
+                'mail_port' => config('mail.mailers.smtp.port'),
+                'mail_username_set' => ! empty(config('mail.mailers.smtp.username')),
             ]);
 
             return response()->json([
@@ -128,6 +128,83 @@ class HomeController extends Controller
                 'message' => config('app.debug') ? $ex->getMessage() : 'Có lỗi khi gửi đơn.',
             ], 500);
         }
+    }
+
+    /**
+     * Danh sách inbox nhận booking (tránh gửi đúng SMTP nhưng xem nhầm hộp thư).
+     */
+    protected function resolveBookingMailRecipients(string $primary): array
+    {
+        $candidates = [
+            $primary,
+            config('data.email_receiver_1'),
+            config('data.email_receiver_2'),
+            config('mail.from.address'),
+            config('mail.mailers.smtp.username'),
+        ];
+
+        $valid = [];
+        foreach ($candidates as $email) {
+            $email = is_string($email) ? trim($email) : '';
+            if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $valid[] = strtolower($email);
+            }
+        }
+
+        return array_values(array_unique($valid));
+    }
+
+    /**
+     * Gửi mail đồng bộ (không queue). Thử mailer mặc định rồi smtp_ssl cho VPS.
+     */
+    protected function sendBookingMailSync($booking, string $receiverEmail): void
+    {
+        $username = config('mail.mailers.smtp.username');
+        $password = config('mail.mailers.smtp.password');
+        if (empty($username) || empty($password)) {
+            throw new \RuntimeException(
+                'Thiếu MAIL_USERNAME / MAIL_PASSWORD trên server (.env không được deploy qua FTP — cần cấu hình tay trên VPS).'
+            );
+        }
+
+        $recipients = $this->resolveBookingMailRecipients($receiverEmail);
+        if ($recipients === []) {
+            throw new \RuntimeException('Không có email nhận booking hợp lệ.');
+        }
+
+        $mailers = array_values(array_unique([
+            config('mail.default', 'smtp'),
+            'smtp_ssl',
+        ]));
+
+        $lastError = null;
+        foreach ($mailers as $mailer) {
+            if (! config("mail.mailers.{$mailer}")) {
+                continue;
+            }
+            try {
+                Mail::mailer($mailer)
+                    ->to($recipients)
+                    ->send(new SendEmailBooking($booking));
+                Log::info('Booking mail sent', [
+                    'mailer' => $mailer,
+                    'recipients' => $recipients,
+                    'booking_id' => $booking->id,
+                    'from' => config('mail.from.address'),
+                ]);
+
+                return;
+            } catch (\Throwable $e) {
+                $lastError = $e;
+                Log::warning('Booking mail attempt failed', [
+                    'mailer' => $mailer,
+                    'recipients' => $recipients,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+        }
+
+        throw $lastError ?? new \RuntimeException('Không gửi được email booking.');
     }
 
     public function redirect(Request $request)

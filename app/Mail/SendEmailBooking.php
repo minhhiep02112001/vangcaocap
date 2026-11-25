@@ -5,6 +5,7 @@ namespace App\Mail;
 use App\Models\Booking;
 use Carbon\Carbon;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 
@@ -45,7 +46,17 @@ class SendEmailBooking extends Mailable
     {
         $formType = $this->formTypeLabel();
 
+        $replyTo = [];
+        if (! empty($this->booking->email) && filter_var($this->booking->email, FILTER_VALIDATE_EMAIL)) {
+            $replyTo[] = new Address($this->booking->email, (string) $this->booking->name);
+        }
+
         return new Envelope(
+            from: new Address(
+                (string) config('mail.from.address', config('mail.mailers.smtp.username')),
+                (string) config('mail.from.name', 'The Best Wine')
+            ),
+            replyTo: $replyTo,
             subject: "Booking mới từ {$this->booking->name} - {$formType}",
         );
     }

@@ -890,7 +890,7 @@ $combo_2 = $combos['combo_2'];
                         </div>
                     </form> --}}
                 <div class="mt-1 sm:mt-2   text-center">
-                    <a href="./gio-hang?combo_code={{ $combo_1['code'] }}"
+                    <a href="./gio-hang"
                         class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 md:py-4 rounded-md font-medium text-xs sm:text-sm md:text-base uppercase leading-snug">
                         ĐĂNG KÝ NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER
                     </a>
@@ -954,7 +954,7 @@ $combo_2 = $combos['combo_2'];
                                 <strong class="text-lg font-bold sm:text-2xl whitespace-nowrap text-[#8b0000]">18.000.000 VNĐ</strong> duy nhất.
                             </p>
                         </div>
-                        <a href="./gio-hang?combo_code={{ $combo_2['code'] }}"
+                        <a href="./gio-hang"
                             class="mt-4 inline-block rounded-full bg-[#8b0000] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-10 sm:py-4 sm:text-base">
                             ĐĂNG KÝ Siêu Combo Trả 1 Được 8
                         </a>

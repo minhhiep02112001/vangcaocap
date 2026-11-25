@@ -36,12 +36,39 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+            'port' => (int) trim((string) env('MAIL_PORT', 587)),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            'timeout' => (int) env('MAIL_TIMEOUT', 60),
+            'local_domain' => env('MAIL_EHLO_DOMAIN'),
+            'stream' => [
+                'ssl' => [
+                    'allow_self_signed' => (bool) env('MAIL_ALLOW_SELF_SIGNED', false),
+                    'verify_peer' => filter_var(env('MAIL_VERIFY_PEER', true), FILTER_VALIDATE_BOOLEAN),
+                    'verify_peer_name' => filter_var(env('MAIL_VERIFY_PEER_NAME', true), FILTER_VALIDATE_BOOLEAN),
+                ],
+            ],
+        ],
+
+        /** Fallback Gmail trên VPS (nhiều host chặn 587, 465/ssl ổn hơn) */
+        'smtp_ssl' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+            'port' => 465,
+            'encryption' => 'ssl',
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
+            'timeout' => (int) env('MAIL_TIMEOUT', 60),
+            'local_domain' => env('MAIL_EHLO_DOMAIN'),
+            'stream' => [
+                'ssl' => [
+                    'allow_self_signed' => (bool) env('MAIL_ALLOW_SELF_SIGNED', false),
+                    'verify_peer' => filter_var(env('MAIL_VERIFY_PEER', true), FILTER_VALIDATE_BOOLEAN),
+                    'verify_peer_name' => filter_var(env('MAIL_VERIFY_PEER_NAME', true), FILTER_VALIDATE_BOOLEAN),
+                ],
+            ],
         ],
 
         'ses' => [

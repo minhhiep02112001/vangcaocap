@@ -2,8 +2,8 @@
 return [
 
 
-    'email_receiver_1' => "chuminhhiep0394599501@gmail.com",
-    'email_receiver_2' => "chuminhhiep0394599501@gmail.com",
+    'email_receiver_1' => env('EMAIL_RECEIVER_1', 'salesvangcaocap.vn@gmail.com'),
+    'email_receiver_2' => env('EMAIL_RECEIVER_2', 'chuminhhiep0394599501@gmail.com'),
 
     'limit_paginate_admin' => 10,
     'config_menu' => [
