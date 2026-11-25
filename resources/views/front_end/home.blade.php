@@ -236,6 +236,10 @@
 
         /* Home: heading scale trên mobile (section only, không áp footer) */
         @media (max-width: 639px) {
+            .home-offer-cta-section .home-offer-cta-card {
+                padding: 10 !important;
+            }
+
             #page-home section h1 {
                 font-size: clamp(1.25rem, 5.5vw, 1.625rem) !important;
                 line-height: 1.25 !important;
@@ -889,13 +893,15 @@
 
                         </div>
                     </form> --}}
-                <div class="mt-1 sm:mt-2   text-center">
+                <div class=" sm:mt-2   text-center">
+
                     <a href="./gio-hang?combo_code={{ $combo_1['code'] }}"
-                        class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 md:py-4 rounded-md font-semibold  text-lg sm:text-xl md:text-2xl uppercase leading-snug">
-                        ĐĂNG KÝ NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER
+                        class=" block  rounded-md border-[4px] border-[#181ab6] bg-white px-4 py-5 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6]  md:px-10 md:py-5   text-sm sm:text-xl md:text-2xl min-w-[60%]">
+                        <span class="md:block hidden text-center">ĐĂNG KÝ NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER</span>
+                        <span class="md:hidden block text-center">ĐĂNG KÝ <br> NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER</span>
                     </a>
                 </div>
-                <div class="mt-2 sm:mt-3 text-center">
+                <div class="mt-2 sm:mt-3 text-center ">
                     <a href="#sieu-combo-2026"
                         class="block bg-[#990e06] text-white px-4 sm:px-8 py-3.5 sm:py-4 rounded-md  font-medium  text-xs sm:text-sm md:text-base uppercase leading-snug">
                         Nhận Ưu Đãi Khác
