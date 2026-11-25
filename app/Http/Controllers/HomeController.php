@@ -29,10 +29,7 @@ class HomeController extends Controller
     }
     
     public function gioHang(Request $request)
-    {
-        if(!$request->has('combo_code') || !in_array($request->get('combo_code'), ['combo_1', 'combo_2'])){
-            return redirect()->route('gio-hang', ['combo_code' => 'combo_1']);
-        }
+    { 
         return view('front_end.cart');
     }
     public function page(Request $request)

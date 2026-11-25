@@ -411,8 +411,8 @@ $combo_2 = $combos['combo_2'];
                 <div class="relative">
                     <div class="product-carousel overflow-hidden">
                         <div class="product-slides flex transition-transform duration-300">
-                            <div class="product-slide w-full flex-shrink-0 pb-4">
-                                <img src="./assets/uploads/vang-gia.png" alt="Vang Đỏ Bordeaux"
+                            <div class="product-slide w-full flex-shrink-0">
+                                <img src="./assets/uploads/vang-gia.jpg" alt="Vang Đỏ Bordeaux"
                                     class="w-full max-w-md mx-auto object-top object-cover rounded-2xl shadow-2xl">
                             </div>
                         </div>
@@ -922,7 +922,7 @@ $combo_2 = $combos['combo_2'];
 
         <div class="home-combo-details bg-gradient-to-br from-[#8b0000]/10 to-secondary/10">
             <div class="home-combo-details-inner mx-auto flex max-w-6xl flex-col">
-                <section class="rounded-2xl bg-[#990e06] p-4 shadow-xl sm:rounded-3xl sm:p-8"
+                <section class="rounded-2xl bg-[#990e06] p-4 shadow-xl sm:rounded-3xl sm:p-6"
                     aria-labelledby="home-combo-offer-title">
                     <h2 id="home-combo-offer-title"
                         class="mb-3 text-center font-playfair text-2xl font-bold leading-tight text-white sm:mb-5 sm:text-4xl">
@@ -942,7 +942,7 @@ $combo_2 = $combos['combo_2'];
                             cùng chuyên gia rượu vang hơn 15 năm kinh nghiệm của The Best Wine.</li>
                     </ol>
                     <div
-                        class="mt-6 rounded-xl bg-gradient-to-r from-[#8b0000]/30 to-secondary/10 p-3 text-center sm:mt-9 sm:rounded-2xl sm:p-7">
+                        class="mt-2 rounded-xl bg-gradient-to-r from-[#8b0000]/30 to-secondary/10 p-3 text-center sm:rounded-2xl sm:p-3">
                         <div class="rounded-xl bg-gray-50 p-4 text-gray-800 shadow-md sm:p-6">
                             <p class="text-lg font-bold sm:text-2xl">
                                 Tổng giá trị quà tặng: <span class="whitespace-nowrap">9.860.000 VNĐ</span>
@@ -955,7 +955,7 @@ $combo_2 = $combos['combo_2'];
                             </p>
                         </div>
                         <a href="./gio-hang?combo_code={{ $combo_2['code'] }}"
-                            class="mt-4 inline-block rounded-full bg-[#8b0000] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-10 sm:py-4 sm:text-base">
+                            class="mt-4 inline-block rounded-full bg-[#8b0000] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white   sm:text-base">
                             ĐĂNG KÝ Siêu Combo Trả 1 Được 8
                         </a>
                     </div>
