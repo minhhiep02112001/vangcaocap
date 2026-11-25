@@ -301,7 +301,7 @@ $combo_2 = $combos['combo_2'];
                     <a href="#contact"
                         class="text-primary text-xl hover:text-primary/80 transition-colors font-medium uppercase">Liên
                         hệ</a>
-                    <a href="/gio-hang"
+                    <a href="#gio-hang"
                         class="inline-flex items-center gap-1 text-primary text-xl hover:text-primary/80 transition-colors font-medium uppercase">
                         <i class="ri-shopping-cart-2-line text-2xl"></i>
                         Giỏ hàng
@@ -324,7 +324,7 @@ $combo_2 = $combos['combo_2'];
                 <a href="#contact"
                     class="text-primary hover:text-primary/80 transition-colors font-medium text-center uppercase">Liên
                     hệ</a>
-                <a href="/gio-hang"
+                <a href="#gio-hang"
                     class="text-primary hover:text-primary/80 transition-colors font-medium text-center uppercase">Giỏ
                     hàng</a>
             </nav>

@@ -21,7 +21,7 @@ Route::group([
     // 'middleware' => ['redirect_301']
 ], function () {
     Route::get('/',  [App\Http\Controllers\HomeController::class, 'dashboard'])->name('home')->middleware('cacheResponse:300');
-    Route::view('/gio-hang', 'front_end.cart')->name('cart.index');
+    Route::get('/gio-hang', [App\Http\Controllers\HomeController::class, 'gioHang'])->name('gio-hang')->middleware('cacheResponse:300');
     Route::get('/ruou-vang', [App\Http\Controllers\HomeController::class, 'ruouVang'])->name('ruou-vang')->middleware('cacheResponse:300');
     Route::post('/booking',  [App\Http\Controllers\HomeController::class, 'booking'])->name('booking');
     Route::get('/uu-dai-dac-biet', [App\Http\Controllers\HomeController::class, 'page'])->name('page')->where(['slug' => '[a-z0-9-_]+']);
