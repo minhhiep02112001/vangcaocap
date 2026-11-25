@@ -237,7 +237,8 @@
         /* Home: heading scale trên mobile (section only, không áp footer) */
         @media (max-width: 639px) {
             .home-offer-cta-section .home-offer-cta-card {
-                padding: 10 !important;
+                padding: 10px !important;
+                margin: 0px 20px !important;
             }
 
             #page-home section h1 {
@@ -831,7 +832,7 @@
                 Đặt hàng ngay hôm nay để nhận ưu đãi cho đơn hàng đầu tiên
                 và miễn phí giao hàng toàn quốc
             </p>
-            <div class="home-offer-cta-card bg-white rounded-lg sm:rounded-xl text-center max-w-3xl mx-auto">
+            <div class="home-offer-cta-card bg-white rounded-lg sm:rounded-xl text-center md:max-w-[670px] sm:max-w-[500px] mx-auto">
                 <h4 class="hidden sm:block text-2xl md:text-3xl font-bold text-[#B91C1C] mb-4 md:mb-8">THÔNG TIN ĐẶT
                     HÀNG</h4>
                 {{--
@@ -896,7 +897,7 @@
                 <div class=" sm:mt-2   text-center">
 
                     <a href="./gio-hang?combo_code={{ $combo_1['code'] }}"
-                        class=" block  rounded-md border-[4px] border-[#181ab6] bg-white px-4 py-5 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6]  md:px-10 md:py-5   text-sm sm:text-xl md:text-2xl min-w-[60%]">
+                        class=" block  rounded-md border-[4px] border-[#181ab6] bg-white px-2 py-5 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6]  md:px-5 md:py-5   text-sm sm:text-xl md:text-2xl min-w-[60%]">
                         <span class="md:block hidden text-center">ĐĂNG KÝ NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER</span>
                         <span class="md:hidden block text-center">ĐĂNG KÝ <br> NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER</span>
                     </a>
