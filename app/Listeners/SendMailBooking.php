@@ -34,7 +34,7 @@ class SendMailBooking // implements ShouldQueue
 
 
         try {
-            $to = !empty($data['form_type']) && $data['form_type']  == 'form_1' ? config('data.email_receiver_1') : config('data.email_receiver_1');
+            $to = config('data.email_receiver');
             $email = new SendEmailBooking($data); 
             Mail::to($to)->send($email);
         } catch (\Throwable $e) {

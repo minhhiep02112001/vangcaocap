@@ -356,6 +356,7 @@
                     <input type="hidden" name="form_type" id="form_type" value="{{ $defaultFormType }}">
                     <input type="hidden" name="count_combo" id="count_combo_hidden" value="1">
                     <input type="hidden" name="order_summary" id="order_summary" value="">
+                    <input type="hidden" name="note" id="order_note" value="">
 
                     <h2 id="order-modal-title" class="font-playfair text-2xl font-bold text-gray-900 mb-1 pr-8">THÔNG
                         TIN ĐẶT HÀNG</h2>
@@ -517,7 +518,47 @@
                     }
                     return l.name + ': ' + l.qty + ' combo (' + formatPrice(l.lineTotal) + ')';
                 });
-                return parts.join('; ') + ' — Tổng: ' + formatPrice(subtotal);
+                if (parts.length > 0) {
+                    return parts.join('; ') + ' — Tổng: ' + formatPrice(subtotal);
+                }
+                const billable = document.querySelector('.cart-row:not([data-included="1"])');
+                if (billable) {
+                    const name = billable.querySelector('h2')?.textContent?.trim() || billable.dataset.comboKey;
+                    const qty = billable.querySelector('.qty-input')?.value || '1';
+                    const price = parseInt(billable.dataset.price, 10) || 0;
+                    const lineTotal = price * (parseInt(qty, 10) || 1);
+                    return name + ': ' + qty + ' combo (' + formatPrice(lineTotal) + ') — Tổng: ' +
+                        formatPrice(lineTotal);
+                }
+                return '';
+            }
+
+            function buildFullBookingNote() {
+                const summary = buildOrderNote();
+                const customer = document.getElementById('customer_note')?.value?.trim() || '';
+                if (summary && customer) {
+                    return summary + '\n\nGhi chú khách hàng: ' + customer;
+                }
+                if (summary) {
+                    return summary;
+                }
+                if (customer) {
+                    return 'Ghi chú khách hàng: ' + customer;
+                }
+                return '';
+            }
+
+            function syncBookingNoteFields() {
+                const summary = buildOrderNote();
+                const full = buildFullBookingNote();
+                const summaryEl = document.getElementById('order_summary');
+                const noteEl = document.getElementById('order_note');
+                if (summaryEl) {
+                    summaryEl.value = summary;
+                }
+                if (noteEl) {
+                    noteEl.value = full;
+                }
             }
 
             function updateFormType() {
@@ -566,7 +607,7 @@
                 updateFormType();
                 const state = getCartState();
                 document.getElementById('count_combo_hidden').value = state.totalQty;
-                document.getElementById('order_summary').value = buildOrderNote();
+                syncBookingNoteFields();
                 document.getElementById('order-summary-text').textContent = buildOrderNote();
                 modal.classList.remove('hidden');
                 modal.setAttribute('aria-hidden', 'false');
@@ -579,7 +620,9 @@
                 document.body.style.overflow = '';
             }
 
-            openBtn.addEventListener('click', openModal);
+            if (openBtn) {
+                openBtn.addEventListener('click', openModal);
+            }
             document.querySelectorAll('.js-cart-buy-now').forEach((btn) => {
                 btn.addEventListener('click', openModal);
             });
@@ -592,8 +635,9 @@
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 syncLineTotals();
+                updateFormType();
                 document.getElementById('count_combo_hidden').value = getCartState().totalQty;
-                document.getElementById('order_summary').value = buildOrderNote();
+                syncBookingNoteFields();
 
                 const submitBtn = document.getElementById('order-submit');
                 const originalText = submitBtn.textContent;

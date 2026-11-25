@@ -92,36 +92,19 @@ class HomeController extends Controller
         }
 
         $input = $validated;
-        if ($request->filled('order_summary') || $request->filled('customer_note')) {
-            $summary = trim((string) $request->input('order_summary', ''));
-            $customerNote = trim((string) $request->input('customer_note', ''));
-            $input['note'] = $summary;
-            if ($customerNote !== '') {
-                $input['note'] = ($summary !== '' ? $summary . "\n\n" : '')
-                    . 'Ghi chú khách hàng: ' . $customerNote;
-            }
-        } elseif ($request->has('note')) {
-            $input['note'] = $request->input('note');
-        }
         if ($request->has('count_combo')) {
             $input['count_combo'] = $request->input('count_combo');
         }
+        $input['note'] = $this->resolveBookingNote($request, $input);
+        
         try {
             $booking =  $this->bookingRepository->create($input);
             $redirect = null;
-            $receiverEmail = match ($input['form_type']) {
-                'combo_1', 'form_1' => config('data.email_receiver_1'),
-                'combo_2', 'combo_cart', 'form_2' => config('data.email_receiver_2'),
-                'form_3' => config('data.email_receiver_2'),
-                'form_4' => config('data.email_receiver_1'),
-                default => config('data.email_receiver_1'),
-            };
-
             if ($input['form_type'] === 'form_4') {
                 $redirect = url('/uu-dai-dac-biet');
             }
 
-            $this->sendBookingMailSync($booking, $receiverEmail);
+            $this->sendBookingMailSync($booking);
 
             return response()->json([
                 'status' => 'success',
@@ -143,34 +126,67 @@ class HomeController extends Controller
         }
     }
 
-    /**
-     * Danh sách inbox nhận booking (tránh gửi đúng SMTP nhưng xem nhầm hộp thư).
-     */
-    protected function resolveBookingMailRecipients(string $primary): array
+    protected function composeBookingNote(string $summary, string $customerNote): string
     {
-        $candidates = [
-            $primary,
-            config('data.email_receiver_1'),
-            config('data.email_receiver_2'),
-            config('mail.from.address'),
-            config('mail.mailers.smtp.username'),
-        ];
-
-        $valid = [];
-        foreach ($candidates as $email) {
-            $email = is_string($email) ? trim($email) : '';
-            if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $valid[] = strtolower($email);
-            }
+        if ($summary !== '' && $customerNote !== '') {
+            return $summary . "\n\nGhi chú khách hàng: " . $customerNote;
+        }
+        if ($summary !== '') {
+            return $summary;
         }
 
-        return array_values(array_unique($valid));
+        return 'Ghi chú khách hàng: ' . $customerNote;
+    }
+
+    protected function resolveBookingNote(Request $request, array $input): ?string
+    {
+        $legacyNote = trim((string) $request->input('note', ''));
+        $summary = trim((string) $request->input('order_summary', ''));
+        $customerNote = trim((string) $request->input('customer_note', ''));
+
+        if ($legacyNote !== '') {
+            return $legacyNote;
+        }
+        if ($summary !== '' || $customerNote !== '') {
+            return $this->composeBookingNote($summary, $customerNote);
+        }
+
+        $formType = (string) ($input['form_type'] ?? '');
+        $comboKey = match ($formType) {
+            'form_1' => 'combo_1',
+            'form_2' => 'combo_2',
+            default => $formType,
+        };
+
+        if (! in_array($comboKey, ['combo_1', 'combo_2'], true)) {
+            return null;
+        }
+
+        $combo = config("data.combo.{$comboKey}");
+        if (! is_array($combo)) {
+            return null;
+        }
+
+        $qty = max(1, (int) $request->input('count_combo', 1));
+        $price = number_format((int) ($combo['price'] ?? 0), 0, ',', '.');
+
+        return ($combo['name'] ?? $comboKey) . ": {$qty} combo ({$price} VNĐ)";
+    }
+
+    protected function bookingReceiverEmail(): string
+    {
+        $email = trim((string) config('data.email_receiver', ''));
+        if ($email === '' || ! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new \RuntimeException('EMAIL_RECEIVER trong .env không hợp lệ hoặc chưa cấu hình.');
+        }
+
+        return strtolower($email);
     }
 
     /**
      * Gửi mail đồng bộ (không queue). Thử mailer mặc định rồi smtp_ssl cho VPS.
      */
-    protected function sendBookingMailSync($booking, string $receiverEmail): void
+    protected function sendBookingMailSync($booking): void
     {
         $username = config('mail.mailers.smtp.username');
         $password = config('mail.mailers.smtp.password');
@@ -180,29 +196,28 @@ class HomeController extends Controller
             );
         }
 
-        $recipients = $this->resolveBookingMailRecipients($receiverEmail);
-        if ($recipients === []) {
-            throw new \RuntimeException('Không có email nhận booking hợp lệ.');
-        }
+        $to = $this->bookingReceiverEmail();
 
         $mailers = array_values(array_unique([
             config('mail.default', 'smtp'),
             'smtp_ssl',
         ]));
 
-        $lastError = null;
+        $lastError = null; 
+        $mailable = new SendEmailBooking($booking);
+
         foreach ($mailers as $mailer) {
             if (! config("mail.mailers.{$mailer}")) {
                 continue;
             }
             try {
-                Mail::mailer($mailer)
-                    ->to($recipients)
-                    ->send(new SendEmailBooking($booking));
+                Mail::mailer($mailer)->to($to)->send($mailable);
+
                 Log::info('Booking mail sent', [
                     'mailer' => $mailer,
-                    'recipients' => $recipients,
+                    'to' => $to,
                     'booking_id' => $booking->id,
+                    'form_type' => $booking->form_type,
                     'from' => config('mail.from.address'),
                 ]);
 
@@ -211,7 +226,8 @@ class HomeController extends Controller
                 $lastError = $e;
                 Log::warning('Booking mail attempt failed', [
                     'mailer' => $mailer,
-                    'recipients' => $recipients,
+                    'to' => $to,
+                    'booking_id' => $booking->id,
                     'error' => $e->getMessage(),
                 ]);
             }

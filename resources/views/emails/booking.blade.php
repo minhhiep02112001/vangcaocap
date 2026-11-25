@@ -9,11 +9,11 @@
          @switch($form)
              @case('combo_1')
              @case('form_1')
-             @case('form_2')
                  {{ config('data.combo.combo_1.name', 'COMBO 2.370.000 VNĐ') }}
              @break
 
              @case('combo_2')
+             @case('form_2')
              @case('form_4')
                  {{ config('data.combo.combo_2.name', 'Siêu combo 2026 trả 1 được 8') }}
              @break
@@ -34,6 +34,16 @@
      <table align="center" cellspacing="0" cellpadding="6" width="100%"
          style="max-width:100%;background:#e9e9e9;padding:50px 0px,border:0;color:#000000;line-height:150%;text-align:left;font:300 14px/30px &#39;Helvetica Neue&#39;,Helvetica,Arial,sans-serif;"
          border=".5px">
+         <tr width="100%">
+             <th width="30%"
+                 style="text-align:left;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0;word-wrap:break-word">
+                 Loại combo / form
+             </th>
+             <td width="70%"
+                 style="text-align:right;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0;font-weight:bold">
+                 {{ $form_type ?? $form }}
+             </td>
+         </tr>
          <tr width="100%">
              <th width="30%"
                  style="text-align:left;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0;word-wrap:break-word">
@@ -93,7 +103,11 @@
              </th>
              <td width="70%"
                  style="text-align:right;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0;white-space:pre-wrap">
-                 {{ ! empty($customer_note) ? $customer_note : '—' }}
+                 @if (!empty($customer_note))
+                     {{ $customer_note }}
+                 @else
+                     —
+                 @endif
              </td>
          </tr>
      </table>

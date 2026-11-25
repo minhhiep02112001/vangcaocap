@@ -832,7 +832,7 @@
                 Đặt hàng ngay hôm nay để nhận ưu đãi cho đơn hàng đầu tiên
                 và miễn phí giao hàng toàn quốc
             </p>
-            <div class="home-offer-cta-card bg-white rounded-lg sm:rounded-xl text-center md:max-w-[640px] sm:max-w-[500px] mx-auto">
+            <div class="home-offer-cta-card bg-white rounded-lg sm:rounded-xl text-center md:max-w-[650px] sm:max-w-[500px] mx-auto">
                 <h4 class="hidden sm:block text-2xl md:text-3xl font-bold text-[#B91C1C] mb-4 md:mb-8">THÔNG TIN ĐẶT
                     HÀNG</h4>
                 {{--
