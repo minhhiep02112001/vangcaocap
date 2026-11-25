@@ -7,13 +7,14 @@
                  <div class="space-y-4">
                      <div>
                          <h3 class="text-xl font-bold text-red-900 mb-2">VĂN PHÒNG HÀ NỘI</h3>
-                         <p class="text-red-600">Địa chỉ: 115 Xuân Quỳnh, Trung Hòa, Cầu Giấy, Hà Nội</p>
-                         <p class="text-red-600">Hotline: <a href="tel:0903481086"
-                                 class="hover:text-red-700">090.348.1086</a></p>
+                         <p class="text-red-600">Địa chỉ 1: 115 Xuân Quỳnh, Trung Hòa, Cầu Giấy, Hà Nội</p>
+                         <p class="text-red-600">Địa chỉ 2: Số 51 Trần Phú, Thường Tín.</p>
+                         <p class="text-red-600">Hotline: <a href="tel:0926896868"
+                                 class="hover:text-red-700">092.689.6868</a></p>
                      </div>
                      <div>
                          <h3 class="text-xl font-bold text-red-900 mb-2">VĂN PHÒNG TP.HCM</h3>
-                         <p class="text-red-600">Địa chỉ: 23 Hoa Lan, P2, Phú Nhuận, TP HCM</p>
+                         <p class="text-red-600">Địa chỉ: Số 88 Bình Giã, Phường 13, Tân Bình.</p>
                          <p class="text-red-600">Hotline: <a href="tel:0988393000"
                                  class="hover:text-red-700">0988.393.000</a></p>
                      </div>
@@ -31,7 +32,7 @@
                          <h3 class="text-xl font-bold text-red-900 mb-4">Văn Phòng Hà Nội</h3>
                          <div class="bg-gray-50 rounded-lg overflow-hidden aspect-[4/3]">
                              <iframe
-                                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7448.9085414087895!2d105.801156!3d21.014502!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab005f399e4d%3A0x76cb4c55e88d43b3!2sThe%20Best%20Wine!5e0!3m2!1svi!2s!4v1756420834643!5m2!1svi!2s"
+                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4538389890417!2d105.79857967599786!3d21.014519288265426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab005f399e4d%3A0x76cb4c55e88d43b3!2sThe%20Best%20Wine!5e0!3m2!1svi!2s!4v1795595153698!5m2!1svi!2s"
                                  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                                  referrerpolicy="no-referrer-when-downgrade"></iframe>
                          </div>
@@ -40,7 +41,7 @@
                          <h3 class="text-xl font-bold text-red-900 mb-4">Văn Phòng TP HCM</h3>
                          <div class="bg-gray-50 rounded-lg overflow-hidden aspect-[4/3]">
                              <iframe
-                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.1899815783077!2d106.68876817584616!3d10.796756758816784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528cef41a3e99%3A0x6d9f736ab46da8bc!2zMjMgSG9hIExhbiwgUGjGsOG7nW5nIDcsIFBow7ogTmh14bqtbiwgSOG7kyBDaMOtIE1pbmggNzI1NTA3LCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1756202313395!5m2!1svi!2s"
+                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.189712861088!2d106.68877017586837!3d10.796777358816232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752903172963d5%3A0xf52c2926d74eabf6!2sThe%20Best%20Wine!5e0!3m2!1svi!2s!4v1795595059180!5m2!1svi!2s"
                                  width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                                  referrerpolicy="no-referrer-when-downgrade"></iframe>
                          </div>

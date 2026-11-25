@@ -61,5 +61,21 @@ return [
         'retail_alcohol_license_number' => '410 /GP - BCT',
         'retail_alcohol_license_date' => '23/11/2021',
         'retail_alcohol_license_issued_by' => 'Bộ Công Thương'
+    ],
+    'combo' => [
+        'combo_1' => [
+            'code' => 'combo_1',
+            'name' => 'Combo 6 CHAI VANG NHẬP KHẨU CHÍNH HÃNG PETIT GAUTIER',
+            'price' => 2370000,
+            'description' => '395K/chai — 6 chai nhập khẩu chính hãng', 
+            'image' => '/assets/uploads/ruou-vang-combo-1.png',
+        ],
+        'combo_2' => [
+            'code' => 'combo_2',
+            'name' => 'Siêu combo 2026 trả 1 được 8',
+            'price' => 18000000,
+            'description' => 'Trả 1 được 8',  
+            'image' => '/assets/images/banner_combo_1.jpg',
+        ]
     ]
 ];

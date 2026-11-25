@@ -74,19 +74,28 @@ class HomeController extends Controller
         $input = $request->only(['name', 'phone', 'form_type', 'address', 'note', 'count_combo']);
         try {
             $booking =  $this->bookingRepository->create($input);
+            $redirect = null;
             switch ($input['form_type']) {
+                case "combo_1":
                 case "form_1":
-                    $receiverEmail = env("EMAIL_RECEIVER_1",  config('data.email_receiver_1'));
+                    $receiverEmail = env("EMAIL_RECEIVER_1", config('data.email_receiver_1'));
                     break;
-                case "form_2":
-                    $receiverEmail = env("EMAIL_RECEIVER_2",  config('data.email_receiver_1'));
-                    break;
-                case "form_3":
-                    $receiverEmail = env("EMAIL_RECEIVER_3",  config('data.email_receiver_1'));
+                case "combo_2":
+                    $receiverEmail = env("EMAIL_RECEIVER_2", config('data.email_receiver_1'));
                     break;
                 case "form_4":
-                    $receiverEmail = env("EMAIL_RECEIVER_4",  config('data.email_receiver_1'));
+                    $receiverEmail = env("EMAIL_RECEIVER_4", config('data.email_receiver_1'));
                     $redirect = url('/uu-dai-dac-biet');
+                    break;
+                case "combo_cart":
+                case "form_2":
+                    $receiverEmail = env("EMAIL_RECEIVER_2", config('data.email_receiver_1'));
+                    break;
+                case "form_3":
+                    $receiverEmail = env("EMAIL_RECEIVER_3", config('data.email_receiver_1'));
+                    break;
+                default:
+                    $receiverEmail = config('data.email_receiver_1');
                     break;
             }
             Mail::to($receiverEmail)->send(new \App\Mail\SendEmailBooking($booking));

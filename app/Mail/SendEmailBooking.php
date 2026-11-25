@@ -34,6 +34,15 @@ class SendEmailBooking extends Mailable
     {
         $formType = $this->booking->form_type == 'form_1' ? "Form 1" : "Form 2";
         switch ($this->booking->form_type) {
+            case "combo_1":
+                $formType = "Combo 1";
+                break;
+            case "combo_2":
+                $formType = "Combo 2";
+                break;
+            case "combo_cart":
+                $formType = "Giỏ hàng";
+                break;
             case "form_1":
                 $formType = "Form 1";
                 break;
@@ -47,7 +56,7 @@ class SendEmailBooking extends Mailable
                 $formType = "Form hộp quà";
                 break;
             default:
-                $formType = "Form 1";
+                $formType = $this->booking->form_type ?? "Form 1";
         }
 
         return new Envelope(

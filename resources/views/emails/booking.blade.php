@@ -7,17 +7,27 @@
  <body>
      <h3 style="text-align: center;">
          @switch($form)
+             @case('combo_1')
              @case('form_1')
              @case('form_2')
-                 {{ 'COMBO 2.370.000 VNĐ' }}
+                 {{ config('data.combo.combo_1.name', 'COMBO 2.370.000 VNĐ') }}
+             @break
+
+             @case('combo_2')
+             @case('form_4')
+                 {{ config('data.combo.combo_2.name', 'Siêu combo 2026 trả 1 được 8') }}
+             @break
+
+             @case('combo_cart')
+                 Đặt hàng giỏ hàng (nhiều combo)
              @break
 
              @case('form_3')
                  {{ 'Ưu đãi đặc biệt - 6 CHAI RƯỢU VANG ELLETRA PRIMITIVO' }}
              @break
 
-             @case('form_4')
-                 {{ 'Khuyến Mại tủ' }}
+             @default
+                 {{ $form }}
              @break
          @endswitch
      </h3>

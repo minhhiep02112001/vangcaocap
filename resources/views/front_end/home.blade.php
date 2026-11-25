@@ -1,3 +1,9 @@
+@php 
+$combos = config('data.combo');
+$combo_1 = $combos['combo_1'];
+$combo_2 = $combos['combo_2'];
+@endphp
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -306,14 +312,15 @@
         </div>
     </section>
 
-    <section class="bg-cover bg-center px-3 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-12"
+    <section class="bg-cover bg-center px-3 py-2 sm:px-6 sm:py-4 lg:px-8 lg:py-6"
         style="background-image: url('{{ asset('assets/uploads/bg-event.jpg') }}');">
-        <img src="{{ asset('assets/uploads/photo_banner_info_1.jpg') }}" alt="Cách đọc nhãn chai rượu vang" width="1024"
-            height="903" class="mx-auto block h-auto w-full max-w-4xl rounded-lg shadow-2xl sm:rounded-2xl">
+        <img src="{{ asset('assets/uploads/photo_banner_info_1.jpg') }}" alt="Cách đọc nhãn chai rượu vang"
+            width="1024" height="903"
+            class="mx-auto block h-auto w-full max-w-4xl rounded-lg shadow-2xl sm:rounded-2xl">
     </section>
     <!-- Produ
      ct Introduction -->
-    <section class="py-10 relative overflow-hidden">
+    <section class="py-5 relative overflow-hidden">
         <div class="absolute inset-0 bg-[#FDF7F9] transform -skew-y-6 origin-top-left"></div>
         <div class="absolute inset-0 opacity-30"
             style="background: radial-gradient(circle at 70% 30%, #8B1538 0%, transparent 50%)"></div>
@@ -444,10 +451,11 @@
                 <div class="bg-white rounded-2xl shadow-xl p-2 mb-2 relative overflow-hidden">
                     <div class="flex flex-col lg:flex-row items-center justify-between">
                         <div class="text-center lg:text-left mb-8 lg:mb-0">
-                            <p class=" text-2xl  text-[#0E5E22]  mb-2">Tại The Best Wine, với các chuyên gia đã hơn 15
+                            <p class=" text-xl  text-[#0E5E22]  mb-2">Tại The Best Wine, với các chuyên gia đã hơn 15
                                 năm kinh nghiệm hợp tác cùng hàng trăm hầm rượu hàng đầu thế giới, chúng tôi cam kết chỉ
                                 bán rượu vang nhập khẩu nguyên chai và từ những vùng làm vang danh tiếng nhất của Pháp
-                                và Ý.
+                                và Ý.</p>
+                            <p class=" text-xl  text-[#0E5E22]  mb-2">
                                 Ví dụ dưới đây là chai rượu vang Petit Gautier đến từ nhà sản xuất Le Cellier Des
                                 Gourmets, một trong những nhà làm vang nổi tiếng nhất tiểu vùng St Emilion danh giá của
                                 Bordeaux.</p>
@@ -462,9 +470,9 @@
                 <div class="flex flex-col lg:flex-row items-center justify-between" id="product">
                     <div class="text-center lg:text-left mb-8 lg:mb-0">
                         <h3
-                            class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center font-playfair font-bold text-[#990F07] mb-3 sm:mb-4 uppercase leading-tight">
+                            class="text-xl sm:text-2xl md:text-3xl text-center font-playfair font-bold text-[#990F07] mb-3 sm:mb-4 uppercase leading-tight">
                             ƯU ĐÃI KHI MUA 6 CHAI VANG NHẬP KHẨU CHÍNH HÃNG PETIT GAUTIER</h3>
-                        <p class="text-2xl text-center text-[#0E5E22] mb-2">Tổng thanh toán chỉ 2.790.000VNĐ cho Combo
+                        <p class="text-xl text-center text-[#0E5E22] mb-2">Tổng thanh toán chỉ 2.790.000VNĐ cho Combo
                             06 chai vang Pháp nhập khẩu nguyên chai:</p>
                         <div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-4">
                             <div class="text-center">
@@ -475,7 +483,7 @@
                     </div>
                 </div>
             </div>
-            <div class="bg-[#990F07] py-4 text-center mb-8 rounded-lg shadow-md">
+            <div class="bg-[#990F07] py-4 text-center mb-3 rounded-lg shadow-md">
                 <p class="text-2xl font-bold text-white">TỔNG GIÁ TRỊ QUÀ TẶNG 1.559.000 VND</p>
             </div>
             <a href="https://www.vivino.com/fr/le-cellier-des-gourmets-petit-gautier/w/6800488?srsltid=AYCX9vLLCCfvI8Q2QU4mh3P2_WrnchALgTckjondkpucKgUef9T5HcvM"
@@ -645,7 +653,8 @@
             style="background: radial-gradient(circle at 30% 70%, #8B1538 0%, transparent 70%)"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="text-center mb-8 sm:mb-12 md:mb-6">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Chi tiết bộ quà tặng.</h2>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Chi tiết bộ quà tặng.
+                </h2>
                 {{-- <h3 class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 sm:mb-4 leading-tight">Hãy đăng
                     ký <span class="text-[#0E5E22]">COMBO</span></h3>
                 <h3
@@ -847,14 +856,14 @@
                         </div>
                     </form> --}}
                 <div class="mt-1 sm:mt-2   text-center">
-                    <a href="#"
-                        class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 sm:py-2.5 rounded-md font-medium text-xs sm:text-sm md:text-base uppercase leading-snug">
-                        ĐĂNG KÝ
+                    <a href="./gio-hang?combo_code={{ $combo_1['code'] }}"
+                        class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 md:py-4 rounded-md font-medium text-xs sm:text-sm md:text-base uppercase leading-snug">
+                        ĐĂNG KÝ NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER
                     </a>
                 </div>
-                <div class="mt-1 sm:mt-2  text-center">
+                <div class="mt-2 md:mt-5  text-center">
                     <a href="./uu-dai-dac-biet"
-                        class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 sm:py-2.5 rounded-md font-medium text-xs sm:text-sm md:text-base uppercase leading-snug">
+                        class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 md:py-4 rounded-md font-medium text-xs sm:text-sm md:text-base uppercase leading-snug">
                         Nhận Ưu Đãi Khác
                     </a>
                 </div>
@@ -910,12 +919,12 @@
                                 Như vậy, với Combo này bạn đã có tất cả các ưu đãi tốt nhất của chúng tôi với chỉ một
                                 lần
                                 thanh toán
-                                <strong class="whitespace-nowrap text-[#8b0000]">18.000.000 VNĐ</strong> duy nhất.
+                                <strong class="text-lg font-bold sm:text-2xl whitespace-nowrap text-[#8b0000]">18.000.000 VNĐ</strong> duy nhất.
                             </p>
                         </div>
-                        <a href="#contact"
+                        <a href="./gio-hang?combo_code={{ $combo_2['code'] }}"
                             class="mt-4 inline-block rounded-full bg-[#8b0000] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-10 sm:py-4 sm:text-base">
-                            LIÊN HỆ MUA HÀNG
+                            ĐĂNG KÝ Siêu Combo Trả 1 Được 8
                         </a>
                     </div>
                 </section>
