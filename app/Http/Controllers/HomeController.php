@@ -92,7 +92,15 @@ class HomeController extends Controller
         }
 
         $input = $validated;
-        if ($request->has('note')) {
+        if ($request->filled('order_summary') || $request->filled('customer_note')) {
+            $summary = trim((string) $request->input('order_summary', ''));
+            $customerNote = trim((string) $request->input('customer_note', ''));
+            $input['note'] = $summary;
+            if ($customerNote !== '') {
+                $input['note'] = ($summary !== '' ? $summary . "\n\n" : '')
+                    . 'Ghi chú khách hàng: ' . $customerNote;
+            }
+        } elseif ($request->has('note')) {
             $input['note'] = $request->input('note');
         }
         if ($request->has('count_combo')) {

@@ -18,7 +18,7 @@
                 height="104">
         </div>
 
-        <p class="age-popup__warning">Nội dung này không phù hợp với độ tuổi của bạn!</p>
+        <p class="age-popup__warning">QUÝ KHÁCH ĐÃ ĐỦ 18 TUỔI?</p>
         <p class="age-popup__prompt">Vui Lòng Lựa Chọn</p>
         <div class="age-popup__actions">
             <button type="button" id="age-popup-accept" class="age-popup__button age-popup__button--accept">Đủ 18
@@ -135,7 +135,8 @@
     .age-popup__button--accept {
         border: 2px solid #df3035;
         background: #fff;
-        color: #df3035
+        color: #df3035;
+        width: 60%;
     }
 
     .age-popup__button--reject {

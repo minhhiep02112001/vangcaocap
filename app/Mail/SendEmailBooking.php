@@ -66,9 +66,22 @@ class SendEmailBooking extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Content
      */
+  protected function splitBookingNote(?string $note): array
+    {
+        if ($note === null || $note === '') {
+            return ['', ''];
+        }
+        if (preg_match('/^(.*)\n\nGhi chú khách hàng:\s*(.*)$/s', $note, $matches)) {
+            return [trim($matches[1]), trim($matches[2])];
+        }
+
+        return [$note, ''];
+    }
+
     public function content()
     {
         $created_at = Carbon::parse($this->booking->created_at)->format('Y-m-d H:i');
+        [$orderDetail, $customerNote] = $this->splitBookingNote($this->booking->note);
         $data  = [
             'customerName' => $this->booking->name,
             'form_type' => $this->formTypeLabel(),
@@ -78,6 +91,8 @@ class SendEmailBooking extends Mailable
             'email' => $this->booking->email,
             'form' => $this->booking->form_type,
             'note' => $this->booking->note,
+            'order_detail' => $orderDetail,
+            'customer_note' => $customerNote,
             'count_combo' => $this->booking->count_combo,
         ];
         return new Content(

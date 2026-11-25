@@ -79,11 +79,21 @@
          <tr width="100%">
              <th width="30%"
                  style="text-align:left;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0;word-wrap:break-word">
-                 Ghi chú
+                 Chi tiết đơn hàng
              </th>
              <td width="70%"
-                 style="text-align:right;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0">
-                 {{ $note }}
+                 style="text-align:right;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0;white-space:pre-wrap">
+                 {{ $order_detail ?? $note ?? '—' }}
+             </td>
+         </tr>
+         <tr width="100%">
+             <th width="30%"
+                 style="text-align:left;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0;word-wrap:break-word">
+                 Ghi chú khách hàng
+             </th>
+             <td width="70%"
+                 style="text-align:right;vertical-align:middle;border-left:1px solid #eee;border-bottom:1px solid #eee;border-right:0;border-top:0;white-space:pre-wrap">
+                 {{ ! empty($customer_note) ? $customer_note : '—' }}
              </td>
          </tr>
      </table>

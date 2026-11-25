@@ -355,7 +355,7 @@
                     @csrf
                     <input type="hidden" name="form_type" id="form_type" value="{{ $defaultFormType }}">
                     <input type="hidden" name="count_combo" id="count_combo_hidden" value="1">
-                    <input type="hidden" name="note" id="order_note" value="">
+                    <input type="hidden" name="order_summary" id="order_summary" value="">
 
                     <h2 id="order-modal-title" class="font-playfair text-2xl font-bold text-gray-900 mb-1 pr-8">THÔNG
                         TIN ĐẶT HÀNG</h2>
@@ -379,6 +379,12 @@
                                     class="text-red-600">*</span></label>
                             <input type="text" name="address" required
                                 class="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Ghi chú</label>
+                            <textarea name="customer_note" id="customer_note" rows="3"
+                                class="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary resize-y"
+                                placeholder="Yêu cầu thêm về đơn hàng (không bắt buộc)"></textarea>
                         </div>
                         <div class="rounded-lg bg-gray-50 p-4 text-sm text-gray-700" id="order-summary-text"></div>
                         <button type="submit" id="order-submit"
@@ -560,7 +566,7 @@
                 updateFormType();
                 const state = getCartState();
                 document.getElementById('count_combo_hidden').value = state.totalQty;
-                document.getElementById('order_note').value = buildOrderNote();
+                document.getElementById('order_summary').value = buildOrderNote();
                 document.getElementById('order-summary-text').textContent = buildOrderNote();
                 modal.classList.remove('hidden');
                 modal.setAttribute('aria-hidden', 'false');
@@ -587,7 +593,7 @@
                 e.preventDefault();
                 syncLineTotals();
                 document.getElementById('count_combo_hidden').value = getCartState().totalQty;
-                document.getElementById('order_note').value = buildOrderNote();
+                document.getElementById('order_summary').value = buildOrderNote();
 
                 const submitBtn = document.getElementById('order-submit');
                 const originalText = submitBtn.textContent;

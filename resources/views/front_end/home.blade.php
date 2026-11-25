@@ -957,7 +957,7 @@
                             </p>
                         </div>
                         <a href="./gio-hang?combo_code={{ $combo_2['code'] }}"
-                            class="mt-4 inline-block rounded-full border-2 border-[#1877b6] bg-white px-8 py-4 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6] sm:text-lg md:px-10 md:py-4 md:text-xl">
+                            class="mt-4 inline-block rounded-full border-2 border-[#1877b6] bg-white px-8 py-6 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6] sm:text-lg md:px-10 md:py-5 md:text-xl min-w-[60%]">
                             ĐĂNG KÝ Siêu Combo Trả 1 Được 8
                         </a>
                     </div>
