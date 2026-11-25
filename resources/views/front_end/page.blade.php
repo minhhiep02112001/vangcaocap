@@ -541,8 +541,8 @@
                         <div>
                             <h3 class="text-xl font-bold text-red-900 mb-2">VĂN PHÒNG HÀ NỘI</h3>
                             <p class="text-red-600">Địa chỉ: 115 Xuân Quỳnh, Trung Hòa, Cầu Giấy, Hà Nội</p>
-                            <p class="text-red-600">Hotline: <a href="tel:0903481086"
-                                    class="hover:text-red-700">090.348.1086</a></p>
+                            <p class="text-red-600">Hotline: <a href="tel:092.689.6868"
+                                    class="hover:text-red-700">092.689.6868</a></p>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-red-900 mb-2">CHI NHÁNH TP.HCM</h3>

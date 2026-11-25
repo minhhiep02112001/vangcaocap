@@ -1,11 +1,11 @@
-@php 
-$combos = config('data.combo');
-$combo_1 = $combos['combo_1'];
-$combo_2 = $combos['combo_2'];
+@php
+    $combos = config('data.combo');
+    $combo_1 = $combos['combo_1'];
+    $combo_2 = $combos['combo_2'];
 @endphp
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -500,7 +500,8 @@ $combo_2 = $combos['combo_2'];
                 </div>
             </div>
             <div class="bg-white rounded-2xl shadow-xl p-2 mb-2 relative overflow-hidden">
-                <div class="flex flex-col lg:flex-row items-center justify-between" id="product">
+                <div class="flex flex-col lg:flex-row items-center justify-between scroll-mt-24"
+                    id="combo-petit-gautier">
                     <div class="text-center lg:text-left mb-8 lg:mb-0">
                         <h3
                             class="text-xl sm:text-2xl md:text-3xl text-center font-playfair font-bold text-[#990F07] mb-3 sm:mb-4 uppercase leading-tight">
@@ -826,8 +827,7 @@ $combo_2 = $combos['combo_2'];
                 Đặt hàng ngay hôm nay để nhận ưu đãi cho đơn hàng đầu tiên
                 và miễn phí giao hàng toàn quốc
             </p>
-            <div
-                class="home-offer-cta-card bg-white rounded-lg sm:rounded-xl text-center max-w-3xl mx-auto">
+            <div class="home-offer-cta-card bg-white rounded-lg sm:rounded-xl text-center max-w-3xl mx-auto">
                 <h4 class="hidden sm:block text-2xl md:text-3xl font-bold text-[#B91C1C] mb-4 md:mb-8">THÔNG TIN ĐẶT
                     HÀNG</h4>
                 {{--
@@ -891,13 +891,13 @@ $combo_2 = $combos['combo_2'];
                     </form> --}}
                 <div class="mt-1 sm:mt-2   text-center">
                     <a href="./gio-hang?combo_code={{ $combo_1['code'] }}"
-                        class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 md:py-4 rounded-md font-medium text-xs sm:text-sm md:text-base uppercase leading-snug">
+                        class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 md:py-4 rounded-md font-semibold  text-lg sm:text-xl md:text-2xl uppercase leading-snug">
                         ĐĂNG KÝ NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER
                     </a>
                 </div>
                 <div class="mt-2 sm:mt-3 text-center">
-                    <a href="./uu-dai-dac-biet"
-                        class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 md:py-4 rounded-md font-medium text-xs sm:text-sm md:text-base uppercase leading-snug">
+                    <a href="#sieu-combo-2026"
+                        class="block bg-[#990e06] text-white px-4 sm:px-8 py-3.5 sm:py-4 rounded-md  font-medium  text-xs sm:text-sm md:text-base uppercase leading-snug">
                         Nhận Ưu Đãi Khác
                     </a>
                 </div>
@@ -906,7 +906,7 @@ $combo_2 = $combos['combo_2'];
         </div>
     </section>
 
-    <section class="home-combo-zone relative overflow-hidden">
+    <section id="sieu-combo-2026" class="home-combo-zone relative overflow-hidden scroll-mt-24">
         <div class="combo-banners">
             {{-- <img src="{{ asset('assets/images/banner_combo.jpg') }}" width="1280" height="574" loading="lazy"
                 alt="Siêu Combo 2025: 12 chai vang Le Cerrate, hộp túi, tủ rượu, ly pha lê, decanter và mở chai. Tổng giá trị 16.200.000 VNĐ."> --}}
@@ -951,11 +951,13 @@ $combo_2 = $combos['combo_2'];
                                 Như vậy, với Combo này bạn đã có tất cả các ưu đãi tốt nhất của chúng tôi với chỉ một
                                 lần
                                 thanh toán
-                                <strong class="text-lg font-bold sm:text-2xl whitespace-nowrap text-[#8b0000]">18.000.000 VNĐ</strong> duy nhất.
+                                <strong
+                                    class="text-lg font-bold sm:text-2xl whitespace-nowrap text-[#8b0000]">18.000.000
+                                    VNĐ</strong> duy nhất.
                             </p>
                         </div>
                         <a href="./gio-hang?combo_code={{ $combo_2['code'] }}"
-                            class="mt-4 inline-block rounded-full bg-[#8b0000] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white   sm:text-base">
+                            class="mt-4 inline-block rounded-full border-2 border-[#1877b6] bg-white px-8 py-4 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6] sm:text-lg md:px-10 md:py-4 md:text-xl">
                             ĐĂNG KÝ Siêu Combo Trả 1 Được 8
                         </a>
                     </div>
@@ -1175,14 +1177,16 @@ $combo_2 = $combos['combo_2'];
                         const result = await response.json().catch(() => ({}));
                         if (response.ok && result.status === 'success') {
                             Swal.fire('Thành công!',
-                                'Cảm ơn bạn đã đăng ký. Chúng tôi sẽ liên hệ sớm.', 'success');
+                                'Cảm ơn bạn đã đăng ký. Chúng tôi sẽ liên hệ sớm.',
+                                'success');
                             form.reset();
                             status = true;
                             if (result.redirect) {
                                 redirectTo = result.redirect;
                             }
                         } else {
-                            Swal.fire('Lỗi!', result.message || 'Có lỗi xảy ra, vui lòng thử lại!', 'error');
+                            Swal.fire('Lỗi!', result.message ||
+                                'Có lỗi xảy ra, vui lòng thử lại!', 'error');
                         }
                     } catch (error) {
                         Swal.fire('Lỗi!', 'Lỗi kết nối!', 'error');
