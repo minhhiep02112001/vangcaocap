@@ -510,7 +510,7 @@
                             06 chai vang Pháp nhập khẩu nguyên chai:</p>
                         <div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-4">
                             <div class="text-center">
-                                <img src="./assets/uploads/ruou-vang-combo-1.png" alt="Bộ ly Pha Lê Bohemia 06 chiếc"
+                                <img src="./assets/uploads/ruou-vang-combo-1.jpg" alt="Bộ ly Pha Lê Bohemia 06 chiếc"
                                     class="w-full h-auto rounded-lg ">
                             </div>
                         </div>
@@ -957,7 +957,7 @@
                             </p>
                         </div>
                         <a href="./gio-hang?combo_code={{ $combo_2['code'] }}"
-                            class="mt-4 inline-block rounded-full border-[3px] border-[#181ab6] bg-white px-8 py-6 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6] sm:text-lg md:px-10 md:py-5 md:text-xl min-w-[60%]">
+                            class="mt-4 inline-block rounded-full border-[4px] border-[#181ab6] bg-white px-8 py-6 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6] sm:text-lg md:px-10 md:py-5 md:text-2xl min-w-[60%]">
                             ĐĂNG KÝ Siêu Combo Trả 1 Được 8
                         </a>
                     </div>
