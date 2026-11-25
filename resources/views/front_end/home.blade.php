@@ -163,11 +163,44 @@ $combo_2 = $combos['combo_2'];
             box-sizing: border-box;
             display: grid;
             grid-template-columns: minmax(0, 1fr);
-            gap: clamp(0.75rem, 2vw, 1.5rem);
+            gap: clamp(0.5rem, 1.5vw, 1rem);
             max-width: 84rem;
             margin-inline: auto;
             padding-inline: clamp(0.75rem, 2.5vw, 2rem);
-            padding-bottom: clamp(1rem, 2.5vw, 2rem);
+            padding-bottom: 0;
+        }
+
+        /* Combo stack: CTA → banner → chi tiết sát nhau trên mobile & desktop */
+        .home-offer-cta-section {
+            padding-top: clamp(1.25rem, 4vw, 2.5rem);
+            padding-bottom: clamp(0.5rem, 2vw, 1rem);
+        }
+
+        .home-offer-cta-section .home-offer-cta-card {
+            margin-bottom: 0;
+            padding: clamp(1rem, 3vw, 2rem);
+        }
+
+        .home-combo-zone {
+            margin-top: clamp(-0.75rem, -2.5vw, 0);
+            margin-bottom: clamp(1.25rem, 3vw, 2.5rem);
+        }
+
+        @media (min-width: 1024px) {
+            .home-combo-zone {
+                margin-top: 0;
+            }
+        }
+
+        .home-combo-zone .home-combo-details {
+            padding-top: clamp(0.15rem, 1vw, 0.65rem);
+            padding-bottom: clamp(1.25rem, 3vw, 2.5rem);
+            padding-left: clamp(0.75rem, 2vw, 1.5rem);
+            padding-right: clamp(0.75rem, 2vw, 1.5rem);
+        }
+
+        .home-combo-zone .home-combo-details-inner {
+            gap: clamp(1rem, 2.5vw, 1.75rem);
         }
 
         .combo-banners img {
@@ -780,20 +813,20 @@ $combo_2 = $combos['combo_2'];
             </div>
         </div>
     </section>
-    <section class="py-6 sm:py-10 relative overflow-hidden"
+    <section class="home-offer-cta-section relative overflow-hidden"
         style="background-image: url('./assets/uploads/201b5a32936c69ad19ba28013da9b877.jpg')">
         <div class="absolute inset-0 wine-gradient opacity-90"></div>
         <div class="relative z-10 max-w-6xl mx-auto text-center px-3 sm:px-6 lg:px-8">
-            <h2 class="font-playfair text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-3 sm:mb-6 leading-tight">
+            <h2 class="font-playfair text-2xl sm:text-4xl lg:text-6xl font-bold text-white mb-2 sm:mb-4 leading-tight">
                 Ưu Đãi Đặc Biệt
             </h2>
             <p
-                class="text-sm sm:text-lg md:text-xl text-gray-200 mb-4 sm:mb-8 xl:max-w-[1000px] max-w-2xl mx-auto leading-relaxed px-1">
+                class="text-sm sm:text-lg md:text-xl text-gray-200 mb-3 sm:mb-5 xl:max-w-[1000px] max-w-2xl mx-auto leading-relaxed px-1">
                 Đặt hàng ngay hôm nay để nhận ưu đãi cho đơn hàng đầu tiên
                 và miễn phí giao hàng toàn quốc
             </p>
             <div
-                class="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 md:p-8 text-center max-w-3xl mx-auto mb-4 sm:mb-8">
+                class="home-offer-cta-card bg-white rounded-lg sm:rounded-xl text-center max-w-3xl mx-auto">
                 <h4 class="hidden sm:block text-2xl md:text-3xl font-bold text-[#B91C1C] mb-4 md:mb-8">THÔNG TIN ĐẶT
                     HÀNG</h4>
                 {{--
@@ -861,7 +894,7 @@ $combo_2 = $combos['combo_2'];
                         ĐĂNG KÝ NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER
                     </a>
                 </div>
-                <div class="mt-2 md:mt-5  text-center">
+                <div class="mt-2 sm:mt-3 text-center">
                     <a href="./uu-dai-dac-biet"
                         class="block bg-[#990e06] text-white px-3 sm:px-6 py-2 md:py-4 rounded-md font-medium text-xs sm:text-sm md:text-base uppercase leading-snug">
                         Nhận Ưu Đãi Khác
@@ -872,9 +905,7 @@ $combo_2 = $combos['combo_2'];
         </div>
     </section>
 
-
-
-    <section class="my-10 relative overflow-hidden ">
+    <section class="home-combo-zone relative overflow-hidden">
         <div class="combo-banners">
             {{-- <img src="{{ asset('assets/images/banner_combo.jpg') }}" width="1280" height="574" loading="lazy"
                 alt="Siêu Combo 2025: 12 chai vang Le Cerrate, hộp túi, tủ rượu, ly pha lê, decanter và mở chai. Tổng giá trị 16.200.000 VNĐ."> --}}
@@ -888,12 +919,12 @@ $combo_2 = $combos['combo_2'];
             </a>
         </div> --}}
 
-        <div class="bg-gradient-to-br from-[#8b0000]/10 to-secondary/10 px-3 py-8 sm:px-6 sm:py-12">
-            <div class="mx-auto max-w-6xl space-y-6 sm:space-y-8">
+        <div class="home-combo-details bg-gradient-to-br from-[#8b0000]/10 to-secondary/10">
+            <div class="home-combo-details-inner mx-auto flex max-w-6xl flex-col">
                 <section class="rounded-2xl bg-[#990e06] p-4 shadow-xl sm:rounded-3xl sm:p-8"
                     aria-labelledby="home-combo-offer-title">
                     <h2 id="home-combo-offer-title"
-                        class="mb-5 text-center font-playfair text-2xl font-bold leading-tight text-white sm:mb-7 sm:text-4xl">
+                        class="mb-3 text-center font-playfair text-2xl font-bold leading-tight text-white sm:mb-5 sm:text-4xl">
                         Và đây là 8 ưu đãi bạn nhận được khi mua Combo này:
                     </h2>
                     <ol
