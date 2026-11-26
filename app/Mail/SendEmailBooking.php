@@ -66,7 +66,7 @@ class SendEmailBooking extends Mailable
                 (string) config('mail.from.name', 'The Best Wine')
             ),
             replyTo: $replyTo,
-            subject: "{$subjectTag}Đơn mới {$formType} — {$this->booking->name} — {$this->booking->phone}",
+            subject: "{$subjectTag} Đơn mới {$formType} - {$this->booking->name} - {$this->booking->phone}",
         );
     }
 
@@ -75,50 +75,50 @@ class SendEmailBooking extends Mailable
      *
      * @return \Illuminate\Mail\Mailables\Content
      */
-  protected function splitBookingNote(?string $note): array
+    
+ 
+    /**
+     * Đọc combo từ config/data.php; thiếu config (VPS cũ, chưa deploy file) vẫn không throw.
+     */
+    protected function comboFromConfig(string $comboKey): array
     {
-        if ($note === null || $note === '') {
-            return ['', ''];
-        }
-        if (preg_match('/^(.*)\n\nGhi chú khách hàng:\s*(.*)$/s', $note, $matches)) {
-            return [trim($matches[1]), trim($matches[2])];
+        $combo = config("data.combo.{$comboKey}");
+        if (! is_array($combo)) {
+            return [
+                'name' => $comboKey,
+                'price' => 0,
+            ];
         }
 
-        return [$note, ''];
+        return [
+            'name' => (string) ($combo['name'] ?? $comboKey),
+            'price' => (int) ($combo['price'] ?? 0),
+        ];
+    }
+
+    protected function defaultOrderDetailFromCombo(string $comboKey): string
+    {
+        $combo = $this->comboFromConfig($comboKey);
+        $qty = max(1, (int) ($this->booking->count_combo ?? 1));
+        $priceFormatted = number_format($combo['price'], 0, ',', '.') . ' VNĐ';
+
+        return "{$combo['name']}: {$qty} combo ({$priceFormatted})";
     }
 
     public function content()
     {
-        $created_at = Carbon::parse($this->booking->created_at)->format('Y-m-d H:i');
-        [$orderDetail, $customerNote] = $this->splitBookingNote($this->booking->note);
-
-        $comboKey = match ($this->booking->form_type) {
-            'form_1' => 'combo_1',
-            'form_2' => 'combo_2',
-            default => $this->booking->form_type,
-        };
-
-        if ($orderDetail === '' && in_array($comboKey, ['combo_1', 'combo_2'], true)) {
-            $comboName = config("data.combo.{$comboKey}.name", $comboKey);
-            $qty = (int) ($this->booking->count_combo ?? 1);
-            $price = (int) config("data.combo.{$comboKey}.price", 0);
-            $priceFormatted = number_format($price, 0, ',', '.') . ' VNĐ';
-            $orderDetail = "{$comboName}: {$qty} combo ({$priceFormatted})";
-        }
-
-        $data  = [
-            'customerName' => $this->booking->name,
+        $created_at = Carbon::parse($this->booking->created_at ?? now())->format('Y-m-d H:i'); 
+        $data = [
+            'customerName' => $this->booking->name ?? '',
             'form_type' => $this->formTypeLabel(),
             'created_at' => $created_at,
-            'phone' => $this->booking->phone,
-            'address' => $this->booking->address,
+            'phone' => $this->booking->phone ?? '',
+            'address' => $this->booking->address ?? '',
             'email' => $this->booking->email,
-            'form' => $this->booking->form_type,
-            'note' => $this->booking->note ?? '-',
-            'order_detail' => $orderDetail,
-            'customer_note' => $customerNote ?? '-',
-            'count_combo' => $this->booking->count_combo,
-        ];
+            'form' => $this->booking->form_type ?? '',
+            'note' => $this->booking->note ,  
+            'count_combo' => $this->booking->count_combo ?? 1,
+        ]; 
         return new Content(
             view: 'emails.booking',
             text: 'emails.booking-text',

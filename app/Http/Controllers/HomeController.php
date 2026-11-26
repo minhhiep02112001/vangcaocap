@@ -96,7 +96,11 @@ class HomeController extends Controller
             $input['count_combo'] = $request->input('count_combo');
         }
         $input['note'] = $this->resolveBookingNote($request, $input);
-        
+        if ($input['note'] === null || $input['note'] === '') {
+            $qty = max(1, (int) $request->input('count_combo', 1));
+            $input['note'] = 'Đặt hàng ' . ($input['form_type'] ?? 'combo') . ": {$qty} combo";
+        }
+
         try {
             $booking =  $this->bookingRepository->create($input);
             $redirect = null;
@@ -126,51 +130,94 @@ class HomeController extends Controller
         }
     }
 
+    protected function formatOrderDetailNote(string $note): string
+    {
+        $note = trim($note);
+        if ($note === '') {
+            return $note;
+        }
+
+        if (! str_contains($note, "\n") && str_contains($note, ';')) {
+            $note = preg_replace('/\s*;\s*/', "\n", $note) ?? $note;
+        }
+
+        return preg_replace('/\s*[—\-]\s*Tổng:\s*/u', "\n\nTổng: ", $note) ?? $note;
+    }
+
     protected function composeBookingNote(string $summary, string $customerNote): string
     {
+        $summary = $this->formatOrderDetailNote($summary);
+
         if ($summary !== '' && $customerNote !== '') {
             return $summary . "\n\nGhi chú khách hàng: " . $customerNote;
         }
         if ($summary !== '') {
             return $summary;
         }
+        if ($customerNote !== '') {
+            return 'Ghi chú khách hàng: ' . $customerNote;
+        }
 
-        return 'Ghi chú khách hàng: ' . $customerNote;
+        return '';
     }
 
-    protected function resolveBookingNote(Request $request, array $input): ?string
+    protected function defaultComboOrderLine(string $comboKey, int $qty): string
     {
-        $legacyNote = trim((string) $request->input('note', ''));
-        $summary = trim((string) $request->input('order_summary', ''));
-        $customerNote = trim((string) $request->input('customer_note', ''));
-
-        if ($legacyNote !== '') {
-            return $legacyNote;
-        }
-        if ($summary !== '' || $customerNote !== '') {
-            return $this->composeBookingNote($summary, $customerNote);
-        }
-
-        $formType = (string) ($input['form_type'] ?? '');
-        $comboKey = match ($formType) {
-            'form_1' => 'combo_1',
-            'form_2' => 'combo_2',
-            default => $formType,
-        };
-
-        if (! in_array($comboKey, ['combo_1', 'combo_2'], true)) {
-            return null;
-        }
-
         $combo = config("data.combo.{$comboKey}");
         if (! is_array($combo)) {
-            return null;
+            return "{$comboKey}: {$qty} combo";
         }
 
-        $qty = max(1, (int) $request->input('count_combo', 1));
         $price = number_format((int) ($combo['price'] ?? 0), 0, ',', '.');
 
         return ($combo['name'] ?? $comboKey) . ": {$qty} combo ({$price} VNĐ)";
+    }
+
+    protected function resolveBookingNote(Request $request, array $input): string
+    {
+        $summary = trim((string) $request->input('order_summary', ''));
+        $customerNote = trim((string) $request->input('customer_note', ''));
+        $legacyNote = trim((string) $request->input('note', ''));
+
+        // Ưu tiên tóm tắt giỏ (order_summary) — không phụ thuộc field note ẩn trên VPS/cache JS cũ
+        if ($summary !== '' || $customerNote !== '') {
+            $composed = $this->composeBookingNote($summary, $customerNote);
+            if ($composed !== '') {
+                return $this->formatOrderDetailNote($composed);
+            }
+        }
+
+        if ($legacyNote !== '' && ! preg_match('/^Ghi chú khách hàng:\s*$/u', $legacyNote)) {
+            return $this->formatOrderDetailNote($legacyNote);
+        }
+
+        $formType = (string) ($input['form_type'] ?? '');
+        $qty = max(1, (int) $request->input('count_combo', 1));
+
+        $comboKey = match ($formType) {
+            'form_1', 'combo_1' => 'combo_1',
+            'form_2', 'combo_2', 'form_4' => 'combo_2',
+            default => in_array($formType, ['combo_1', 'combo_2'], true) ? $formType : null,
+        };
+
+        if ($comboKey !== null) {
+            return $this->defaultComboOrderLine($comboKey, $qty);
+        }
+
+        if ($formType === 'combo_cart') {
+            return "Đơn hàng giỏ hàng: {$qty} combo";
+        }
+
+        $formLabels = [
+            'form_3' => 'Ưu đãi đặc biệt - 6 CHAI RƯỢU VANG ELLETRA PRIMITIVO',
+        ];
+        if (isset($formLabels[$formType])) {
+            return $formLabels[$formType] . ": {$qty} combo";
+        }
+
+        return $formType !== ''
+            ? "Đăng ký ({$formType}): {$qty} combo"
+            : "Đăng ký combo: {$qty} combo";
     }
 
     protected function bookingReceiverEmail(): string
@@ -198,10 +245,7 @@ class HomeController extends Controller
 
         $to = $this->bookingReceiverEmail();
 
-        $mailers = array_values(array_unique([
-            config('mail.default', 'smtp'),
-            'smtp_ssl',
-        ]));
+        $mailers = array_values(array_unique([config('mail.default', 'smtp'), 'smtp_ssl', ]));
 
         $lastError = null; 
         $mailable = new SendEmailBooking($booking);

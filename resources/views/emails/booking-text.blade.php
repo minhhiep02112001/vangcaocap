@@ -1,9 +1,10 @@
-ĐƠN ĐẶT HÀNG MỚI — The Best Wine
+ĐƠN ĐẶT HÀNG MỚI -
 Loại combo / form: {{ $form_type }}
 Sản phẩm: @switch($form)
-@case('combo_1')@case('form_1'){{ config('data.combo.combo_1.name') }}@break
-@case('combo_2')@case('form_2'){{ config('data.combo.combo_2.name') }}@break
-@default{{ $form }}@break
+@case('combo_1')@case('form_1'){{ config('data.combo.combo_1.name', 'Combo 1') }}@break
+@case('combo_2')@case('form_2')@case('form_4'){{ config('data.combo.combo_2.name', 'Combo 2') }}@break
+@case('combo_cart')Đặt hàng giỏ hàng@break
+@default{{ $form_type ?? $form }}@break
 @endswitch
 Thời gian: {{ $created_at }}
 
@@ -13,9 +14,4 @@ Tên khách: {{ $customerName }}
 Số lượng combo: {{ $count_combo ?? '1' }}
 
 Chi tiết đơn hàng:
-{{ $order_detail ?? $note ?? '—' }}
-
-@if(!empty($customer_note))
-Ghi chú khách hàng:
-{{ $customer_note }}
-@endif
+{{ $note ?? '—' }}

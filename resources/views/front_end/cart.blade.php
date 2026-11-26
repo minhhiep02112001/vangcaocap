@@ -387,7 +387,8 @@
                                 class="w-full px-4 py-2.5 rounded-lg border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary resize-y"
                                 placeholder="Yêu cầu thêm về đơn hàng (không bắt buộc)"></textarea>
                         </div>
-                        <div class="rounded-lg bg-gray-50 p-4 text-sm text-gray-700" id="order-summary-text"></div>
+                        <div class="rounded-lg bg-gray-50 p-4 text-sm text-gray-700 whitespace-pre-line leading-relaxed"
+                            id="order-summary-text"></div>
                         <button type="submit" id="order-submit"
                             class="w-full bg-[#990e06] hover:bg-[#7a0b05] text-white py-3 rounded-full font-semibold text-lg">
                             Gửi đơn hàng
@@ -519,7 +520,7 @@
                     return l.name + ': ' + l.qty + ' combo (' + formatPrice(l.lineTotal) + ')';
                 });
                 if (parts.length > 0) {
-                    return parts.join('; ') + ' — Tổng: ' + formatPrice(subtotal);
+                    return parts.join('\n') + '\n\nTổng: ' + formatPrice(subtotal);
                 }
                 const billable = document.querySelector('.cart-row:not([data-included="1"])');
                 if (billable) {
@@ -527,7 +528,7 @@
                     const qty = billable.querySelector('.qty-input')?.value || '1';
                     const price = parseInt(billable.dataset.price, 10) || 0;
                     const lineTotal = price * (parseInt(qty, 10) || 1);
-                    return name + ': ' + qty + ' combo (' + formatPrice(lineTotal) + ') — Tổng: ' +
+                    return name + ': ' + qty + ' combo (' + formatPrice(lineTotal) + ')\n\nTổng: ' +
                         formatPrice(lineTotal);
                 }
                 return '';

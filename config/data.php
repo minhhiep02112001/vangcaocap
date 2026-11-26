@@ -2,7 +2,7 @@
 return [
 
 
-    'email_receiver' => env('EMAIL_RECEIVER', 'salesvangcaocap.vn@gmail.com'),
+    'email_receiver' =>  'chuminhhiep0211@gmail.com',
 
     'limit_paginate_admin' => 10,
     'config_menu' => [
