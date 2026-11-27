@@ -203,6 +203,40 @@
             gap: clamp(1rem, 2.5vw, 1.75rem);
         }
 
+        /* Nút đăng ký — nền xanh logo, chữ trắng, cao & bo góc */
+        .home-btn-register {
+            --logo-blue: #1877b6;
+            --logo-blue-dark: #1565a0;
+            display: block;
+            margin-inline: auto;
+            min-width: 60%;
+            width: fit-content;
+            max-width: 100%;
+            padding: clamp(1.35rem, 4vw, 2rem) clamp(1.25rem, 4vw, 2.75rem);
+            font-weight: 700;
+            color: #fff !important;
+            background-color: var(--logo-blue);
+            border: 2px solid var(--logo-blue-dark);
+            text-align: center;
+            line-height: 1.35;
+            letter-spacing: 0.02em;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 14px rgba(24, 119, 182, 0.35);
+        }
+
+        .home-btn-register:hover {
+            background-color: var(--logo-blue-dark);
+            color: #fff !important;
+        }
+
+        .home-btn-register--rounded {
+            border-radius: clamp(0.75rem, 2vw, 1.125rem);
+        }
+
+        .home-btn-register--pill {
+            border-radius: 9999px;
+        }
+
         .combo-banners img {
             display: block;
             width: 100%;
@@ -297,7 +331,7 @@
                         class="text-primary text-xl hover:text-primary/80 transition-colors font-medium uppercase">Về
                         chúng
                         tôi</a>
-                    <a href="/ruou-vang"
+                    <a href="#combo-petit-gautier"
                         class="text-primary text-xl hover:text-primary/80 transition-colors font-medium uppercase">Rượu
                         vang</a>
                     <a href="#features"
@@ -320,7 +354,7 @@
                 <a href="Javascript:void(0)" id="scrollBtnMB"
                     class="text-primary hover:text-primary/80 transition-colors font-medium text-center uppercase">Về
                     chúng tôi</a>
-                <a href="/ruou-vang"
+                <a href="#combo-petit-gautier"
                     class="text-primary hover:text-primary/80 transition-colors font-medium text-center uppercase">Rượu
                     vang</a>
                 <a href="#features"
@@ -897,7 +931,7 @@
                 <div class=" sm:mt-2   text-center">
 
                     <a href="./gio-hang?combo_code={{ $combo_1['code'] }}"
-                        class=" block  rounded-md border-[4px] border-[#181ab6] bg-white px-2 py-5 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6]  md:px-2 md:py-5   text-sm sm:text-xl md:text-2xl min-w-[60%]">
+                        class="home-btn-register home-btn-register--rounded text-sm sm:text-xl md:text-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
                         <span class="md:block hidden text-center">ĐĂNG KÝ NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER</span>
                         <span class="md:hidden block text-center">ĐĂNG KÝ <br> NHẬN ƯU ĐÃI 6 CHAI PETIT GAUTIER</span>
                     </a>
@@ -964,7 +998,7 @@
                             </p>
                         </div>
                         <a href="./gio-hang?combo_code={{ $combo_2['code'] }}"
-                            class="mt-4 inline-block rounded-full border-[4px] border-[#181ab6] bg-white px-8 py-6 text-base font-bold text-[#1877b6] transition-colors hover:bg-[#1877b6]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1877b6] sm:text-lg md:px-10 md:py-5 md:text-2xl min-w-[60%]">
+                            class="home-btn-register home-btn-register--pill mt-4 text-base sm:text-lg md:text-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
                             ĐĂNG KÝ Siêu Combo Trả 1 Được 8
                         </a>
                     </div>
